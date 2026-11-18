@@ -1,10 +1,13 @@
 import React, { useMemo, useState } from 'react';
+import { AccessibilityStudio } from './components/AccessibilityStudio';
 import { ButtonControls } from './components/ButtonControls';
 import { CodeExportPanel } from './components/CodeExportPanel';
+import { ColorWheelStudio } from './components/ColorWheelStudio';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { GlassmorphismControls } from './components/GlassmorphismControls';
 import { GradientControls } from './components/GradientControls';
+import { ImageExtractStudio } from './components/ImageExtractStudio';
 import { LiveCanvas } from './components/LiveCanvas';
 import { Navbar } from './components/Navbar';
 import { NeumorphismControls } from './components/NeumorphismControls';
@@ -98,6 +101,7 @@ export default function App() {
   });
 
   const gradientCss = useMemo(() => buildGradientCss(gradient), [gradient]);
+  const currentPalette = useMemo(() => gradient.stops.map((s) => s.color), [gradient.stops]);
 
   const handleRandomize = () => {
     setGradient(generateRandomGradient());
@@ -139,6 +143,24 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Bridge colors from Color Wheel or Image Extractor directly into the Gradient Studio
+  const handleApplyColorsToGradient = (hexColors: string[]) => {
+    if (!hexColors || hexColors.length === 0) return;
+    const step = 100 / Math.max(1, hexColors.length - 1);
+    const newStops = hexColors.map((hex, idx) => ({
+      id: String(idx + 1),
+      color: hex,
+      position: Math.round(idx * step),
+    }));
+
+    setGradient({
+      ...gradient,
+      stops: newStops,
+    });
+    setActiveMode('gradient');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-[#08090d] text-zinc-100">
       <Navbar
@@ -151,70 +173,85 @@ export default function App() {
       />
 
       <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 p-4 sm:p-6 lg:p-8">
-        {/* Top Split Workspace: Live Canvas & Control Studio */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          {/* Canvas Preview (7 cols) */}
-          <div className="flex flex-col gap-4 lg:col-span-7">
-            <LiveCanvas
-              mode={activeMode}
-              gradient={gradient}
-              gradientCss={gradientCss}
-              glass={glass}
-              neu={neu}
-              shadows={shadows}
-              btn={btn}
-              textGrad={textGrad}
-              onCopyCss={handleCopyCss}
-              copied={copied}
-            />
+        {/* Full-Width Flagship Suite Views */}
+        {activeMode === 'color-wheel' && (
+          <ColorWheelStudio onApplyToGradient={handleApplyColorsToGradient} />
+        )}
 
-            {/* Code Export Box under canvas */}
-            <CodeExportPanel
-              mode={activeMode}
-              gradient={gradient}
-              gradientCss={gradientCss}
-              glass={glass}
-              neu={neu}
-              shadows={shadows}
-              btn={btn}
-              textGrad={textGrad}
-            />
+        {activeMode === 'image-extract' && (
+          <ImageExtractStudio onApplyToGradient={handleApplyColorsToGradient} />
+        )}
+
+        {activeMode === 'accessibility' && (
+          <AccessibilityStudio currentPalette={currentPalette} />
+        )}
+
+        {/* Standard Split Workspace: Live Canvas & Controls (for gradients, glass, neu, shadows, buttons, text, palettes) */}
+        {activeMode !== 'color-wheel' && activeMode !== 'image-extract' && activeMode !== 'accessibility' && (
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+            {/* Canvas Preview (7 cols) */}
+            <div className="flex flex-col gap-4 lg:col-span-7">
+              <LiveCanvas
+                mode={activeMode}
+                gradient={gradient}
+                gradientCss={gradientCss}
+                glass={glass}
+                neu={neu}
+                shadows={shadows}
+                btn={btn}
+                textGrad={textGrad}
+                onCopyCss={handleCopyCss}
+                copied={copied}
+              />
+
+              {/* Code Export Box under canvas */}
+              <CodeExportPanel
+                mode={activeMode}
+                gradient={gradient}
+                gradientCss={gradientCss}
+                glass={glass}
+                neu={neu}
+                shadows={shadows}
+                btn={btn}
+                textGrad={textGrad}
+              />
+            </div>
+
+            {/* Control Dock (5 cols) */}
+            <div className="lg:col-span-5">
+              {activeMode === 'gradient' && (
+                <GradientControls state={gradient} onChange={setGradient} />
+              )}
+
+              {activeMode === 'glassmorphism' && (
+                <GlassmorphismControls state={glass} onChange={setGlass} />
+              )}
+
+              {activeMode === 'neumorphism' && (
+                <NeumorphismControls state={neu} onChange={setNeu} />
+              )}
+
+              {activeMode === 'shadow' && (
+                <ShadowControls shadows={shadows} onChange={setShadows} />
+              )}
+
+              {activeMode === 'button' && (
+                <ButtonControls state={btn} onChange={setBtn} />
+              )}
+
+              {activeMode === 'text' && (
+                <TextGradientControls state={textGrad} onChange={setTextGrad} />
+              )}
+
+              {activeMode === 'palettes' && (
+                <TrendingPalettesGrid onSelectPalette={handleSelectPalette} />
+              )}
+            </div>
           </div>
+        )}
 
-          {/* Control Dock (5 cols) */}
-          <div className="lg:col-span-5">
-            {activeMode === 'gradient' && (
-              <GradientControls state={gradient} onChange={setGradient} />
-            )}
-
-            {activeMode === 'glassmorphism' && (
-              <GlassmorphismControls state={glass} onChange={setGlass} />
-            )}
-
-            {activeMode === 'neumorphism' && (
-              <NeumorphismControls state={neu} onChange={setNeu} />
-            )}
-
-            {activeMode === 'shadow' && (
-              <ShadowControls shadows={shadows} onChange={setShadows} />
-            )}
-
-            {activeMode === 'button' && (
-              <ButtonControls state={btn} onChange={setBtn} />
-            )}
-
-            {activeMode === 'text' && (
-              <TextGradientControls state={textGrad} onChange={setTextGrad} />
-            )}
-
-            {activeMode === 'palettes' && (
-              <TrendingPalettesGrid onSelectPalette={handleSelectPalette} />
-            )}
-          </div>
-        </div>
-
-        {/* Curated Gallery Section (When not already on palettes tab) */}
-        {activeMode !== 'palettes' && (
+        {/* Curated Gallery Section (Rendered below if on standard modes) */}
+        {activeMode !== 'palettes' && activeMode !== 'color-wheel' && activeMode !== 'image-extract' && activeMode !== 'accessibility' && (
           <TrendingPalettesGrid onSelectPalette={handleSelectPalette} />
         )}
 

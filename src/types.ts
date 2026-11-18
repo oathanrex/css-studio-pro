@@ -1,5 +1,8 @@
 export type ToolMode =
   | 'gradient'
+  | 'color-wheel'
+  | 'image-extract'
+  | 'accessibility'
   | 'glassmorphism'
   | 'neumorphism'
   | 'shadow'
