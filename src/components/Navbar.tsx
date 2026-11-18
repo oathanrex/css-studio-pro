@@ -1,12 +1,9 @@
 import {
   Box,
-  ChevronDown,
   CircleDot,
   Copy,
   Download,
-  ExternalLink,
   Flame,
-  Globe,
   Image as ImageIcon,
   Layers,
   Palette,
@@ -16,7 +13,7 @@ import {
   Type,
   Zap,
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 import type { ToolMode } from '../types';
 
 interface NavbarProps {
@@ -41,34 +38,6 @@ const TOOLS: { id: ToolMode; label: string; icon: React.ComponentType<{ classNam
   { id: 'palettes', label: 'Gallery', icon: Flame },
 ];
 
-const ECOSYSTEM_TOOLS = [
-  {
-    name: 'Pro Color Extractor',
-    desc: 'Dominant palette extraction engine with HEX/RGB/HSL telemetry',
-    url: 'https://oathanrex.github.io/pro-color-extractor/',
-  },
-  {
-    name: 'OKLCH Design Tokens',
-    desc: 'Consistent OKLCH color palettes & production CSS token generator',
-    url: 'https://oathanrex.github.io/oklch-tool/',
-  },
-  {
-    name: 'ChromaLab Pro',
-    desc: 'Universal color space converter: HEX, RGB, HSL, CMYK, LAB',
-    url: 'https://oathanrex.github.io/chromalab-pro/',
-  },
-  {
-    name: 'ColorKit Pro',
-    desc: 'Instant web-based color format converter & preview studio',
-    url: 'https://oathanrex.github.io/colorkit-pro/',
-  },
-  {
-    name: 'Named Colors Explorer',
-    desc: 'Interactive visual directory of 140+ CSS named colors',
-    url: 'https://oathanrex.github.io/css-named-colors-explorer/',
-  },
-];
-
 export function Navbar({
   activeMode,
   onSelectMode,
@@ -77,8 +46,6 @@ export function Navbar({
   onDownloadPng,
   copied,
 }: NavbarProps) {
-  const [showEcosystem, setShowEcosystem] = useState(false);
-
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#090a0f]/90 backdrop-blur-xl px-4 py-2.5 transition-all">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
@@ -129,54 +96,8 @@ export function Navbar({
           })}
         </nav>
 
-        {/* Studio Actions & Silo Ecosystem */}
+        {/* Studio Actions */}
         <div className="flex items-center gap-2">
-          {/* Ecosystem Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setShowEcosystem(!showEcosystem)}
-              className="flex items-center gap-1 rounded-lg border border-white/[0.08] bg-zinc-900/90 px-2.5 py-1.5 text-xs font-mono font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer shadow-xs"
-              title="Explore Oathan Rex Color Suite Ecosystem"
-            >
-              <Globe className="h-3 w-3 text-zinc-400" />
-              <span className="hidden sm:inline">Suite</span>
-              <ChevronDown className="h-3 w-3 text-zinc-500" />
-            </button>
-
-            {showEcosystem && (
-              <div
-                className="absolute right-0 mt-2 w-72 rounded-xl border border-white/10 bg-zinc-950 p-2 shadow-2xl z-50 space-y-1"
-                onMouseLeave={() => setShowEcosystem(false)}
-              >
-                <div className="px-3 py-1.5 border-b border-white/[0.06]">
-                  <span className="text-[10px] font-mono uppercase font-bold text-zinc-400 tracking-wider">
-                    Oathan Rex Design Cloud
-                  </span>
-                </div>
-                {ECOSYSTEM_TOOLS.map((et) => (
-                  <a
-                    key={et.name}
-                    href={et.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col gap-0.5 rounded-lg p-2 hover:bg-zinc-900 transition-colors group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-zinc-200 group-hover:text-white">
-                        {et.name}
-                      </span>
-                      <ExternalLink className="h-3 w-3 text-zinc-600 group-hover:text-zinc-400" />
-                    </div>
-                    <span className="text-[10px] text-zinc-500 leading-tight">
-                      {et.desc}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
           {activeMode === 'gradient' && (
             <button
               type="button"
