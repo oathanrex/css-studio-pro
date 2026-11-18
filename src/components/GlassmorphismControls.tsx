@@ -8,22 +8,22 @@ interface GlassmorphismControlsProps {
 
 export function GlassmorphismControls({ state, onChange }: GlassmorphismControlsProps) {
   return (
-    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
-      <div className="border-b border-white/[0.08] pb-3">
-        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+    <div className="space-y-4 rounded-3xl border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 p-5 sm:p-6 shadow-lg dark:shadow-xl transition-colors duration-200">
+      <div className="border-b border-zinc-200 dark:border-white/[0.08] pb-3">
+        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
           Glassmorphism Optics
         </h3>
-        <p className="text-[11px] text-zinc-400">
+        <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
           Backdrop-filter blur, sub-pixel refraction &amp; depth.
         </p>
       </div>
 
       <div className="space-y-3.5 text-xs">
         {/* Blur Intensity Slider */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
             <span>Backdrop Filter Blur</span>
-            <span className="text-zinc-200">{state.blur}px</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{state.blur}px</span>
           </div>
           <input
             type="range"
@@ -36,10 +36,10 @@ export function GlassmorphismControls({ state, onChange }: GlassmorphismControls
         </div>
 
         {/* Opacity Slider */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
             <span>Background Surface Opacity</span>
-            <span className="text-zinc-200">{state.opacity}%</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{state.opacity}%</span>
           </div>
           <input
             type="range"
@@ -52,10 +52,10 @@ export function GlassmorphismControls({ state, onChange }: GlassmorphismControls
         </div>
 
         {/* Border Radius Slider */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
             <span>Border Radius</span>
-            <span className="text-zinc-200">{state.borderRadius}px</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{state.borderRadius}px</span>
           </div>
           <input
             type="range"
@@ -68,10 +68,10 @@ export function GlassmorphismControls({ state, onChange }: GlassmorphismControls
         </div>
 
         {/* Refractive Border Width */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
             <span>Border Width</span>
-            <span className="text-zinc-200">{state.borderWidth}px</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{state.borderWidth}px</span>
           </div>
           <input
             type="range"

@@ -198,32 +198,32 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
     .join(', ')})`;
 
   return (
-    <div className="space-y-6 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 sm:p-7 shadow-2xl">
+    <div className="space-y-6 rounded-3xl border border-zinc-200/90 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 p-6 sm:p-8 shadow-xl dark:shadow-2xl transition-colors duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-white/[0.08] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-zinc-100">
+            <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
               Image Theme &amp; Gradient Extractor
             </h2>
-            <span className="rounded bg-zinc-800 border border-white/10 px-1.5 py-0.5 text-[9px] font-mono text-zinc-300">
+            <span className="rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-white/10 px-2 py-0.5 text-[9px] font-mono text-zinc-700 dark:text-zinc-300">
               100% PRIVATE CLIENT-SIDE
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
             Extract mathematical palettes and linear vector gradients directly from any photograph.
           </p>
         </div>
 
         {/* Sub-mode Switcher */}
-        <div className="flex items-center gap-1 rounded-xl border border-white/[0.08] bg-zinc-900/60 p-1 shadow-inner">
+        <div className="flex items-center gap-1 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-zinc-900/60 p-1 shadow-inner">
           <button
             type="button"
             onClick={() => setSubMode('palette')}
-            className={`rounded-lg px-3 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
+            className={`rounded-full px-3.5 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
               subMode === 'palette'
-                ? 'bg-zinc-800 text-white shadow-xs border border-white/10 font-semibold'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs border border-zinc-200 dark:border-white/10 font-semibold'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white'
             }`}
           >
             Extract Palette
@@ -231,10 +231,10 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
           <button
             type="button"
             onClick={() => setSubMode('gradient')}
-            className={`rounded-lg px-3 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
+            className={`rounded-full px-3.5 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
               subMode === 'gradient'
-                ? 'bg-zinc-800 text-white shadow-xs border border-white/10 font-semibold'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs border border-zinc-200 dark:border-white/10 font-semibold'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white'
             }`}
           >
             Extract Gradient
@@ -245,7 +245,7 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
       {/* Preset Photo Selector & Upload Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
-          <span className="text-[10px] font-mono text-zinc-400 uppercase">Presets:</span>
+          <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase">Presets:</span>
           {SAMPLE_PHOTOS.map((sp) => (
             <button
               key={sp.name}
@@ -254,10 +254,10 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
                 setIsCustomUpload(false);
                 setActiveImageSrc(sp.url);
               }}
-              className={`rounded-lg px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-all cursor-pointer border ${
+              className={`rounded-full px-3 py-1 text-[11px] font-medium whitespace-nowrap transition-all cursor-pointer border ${
                 activeImageSrc === sp.url && !isCustomUpload
-                  ? 'border-white/20 bg-zinc-800 text-white font-semibold'
-                  : 'border-white/[0.05] bg-zinc-900/40 text-zinc-400 hover:text-white'
+                  ? 'border-zinc-300 dark:border-white/20 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white font-semibold shadow-xs'
+                  : 'border-zinc-200 dark:border-white/[0.05] bg-zinc-100/70 dark:bg-zinc-900/40 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white'
               }`}
             >
               {sp.name}
@@ -266,7 +266,7 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
         </div>
 
         {/* Custom Upload Button */}
-        <label className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-zinc-900 hover:bg-zinc-800 px-3 py-1 text-xs font-medium text-zinc-200 cursor-pointer shadow-xs transition-colors">
+        <label className="flex items-center gap-1.5 rounded-full border border-zinc-300 dark:border-white/10 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 px-3.5 py-1 text-xs font-medium text-zinc-800 dark:text-zinc-200 cursor-pointer shadow-xs transition-colors">
           <Upload className="h-3.5 w-3.5" />
           <span>Upload Image</span>
           <input
@@ -281,17 +281,17 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
       {/* Mood Filters Bar (Only for Palette Mode) */}
       {subMode === 'palette' && (
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono text-zinc-400 uppercase">Mood Filter:</span>
+          <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase">Mood Filter:</span>
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none">
             {MOODS.map((m) => (
               <button
                 key={m.id}
                 type="button"
                 onClick={() => handleMoodChange(m.id)}
-                className={`rounded px-2 py-0.5 text-[10px] font-mono transition-all cursor-pointer ${
+                className={`rounded-full px-2.5 py-0.5 text-[10px] font-mono transition-all cursor-pointer ${
                   selectedMood === m.id
-                    ? 'bg-zinc-800 text-white font-bold border border-white/10'
-                    : 'text-zinc-500 hover:text-zinc-300'
+                    ? 'bg-zinc-900 dark:bg-zinc-800 text-white font-bold shadow-xs'
+                    : 'text-zinc-600 dark:text-zinc-500 hover:text-black dark:hover:text-zinc-300'
                 }`}
               >
                 {m.label}
@@ -435,10 +435,10 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
             {pins.map((pin, idx) => (
               <div
                 key={pin.id}
-                className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3 space-y-2.5 hover:border-white/15 transition-all"
+                className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-zinc-50 dark:bg-zinc-900/40 p-3 space-y-2.5 hover:border-zinc-300 dark:hover:border-white/15 transition-all shadow-xs"
               >
                 <div
-                  className="h-16 w-full rounded-lg border border-white/10 shadow-inner flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02]"
+                  className="h-16 w-full rounded-xl border border-black/10 dark:border-white/10 shadow-inner flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02]"
                   style={{ backgroundColor: pin.hex }}
                   onClick={() => {
                     navigator.clipboard.writeText(pin.hex);
@@ -447,12 +447,12 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
                   }}
                   title="Click to copy Hex"
                 >
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-black/60 text-white">
+                  <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-black/60 text-white shadow-xs">
                     {copiedId === pin.id ? 'Copied!' : pin.hex}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
+                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500 dark:text-zinc-400">
                   <span>Color #{idx + 1}</span>
                   <span>RGB: {pin.rgb.r},{pin.rgb.g},{pin.rgb.b}</span>
                 </div>
@@ -460,11 +460,11 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
             ))}
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.06]">
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-200 dark:border-white/[0.06]">
             <button
               type="button"
               onClick={() => onApplyToGradient(pins.map((p) => p.hex))}
-              className="flex items-center gap-1.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 text-xs font-semibold transition-all cursor-pointer shadow-md"
+              className="flex items-center gap-1.5 rounded-full bg-zinc-900 dark:bg-zinc-100 hover:bg-black dark:hover:bg-white text-white dark:text-zinc-950 px-5 py-2 text-xs font-semibold transition-all cursor-pointer shadow-md"
             >
               <Zap className="h-3.5 w-3.5" />
               <span>Apply Extracted Palette to Studio</span>
@@ -472,9 +472,9 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
           </div>
         </div>
       ) : (
-        <div className="space-y-4 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-4">
+        <div className="space-y-4 rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-zinc-50 dark:bg-zinc-900/40 p-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-300">
               Extracted Linear Vector Gradient
             </span>
             <span className="text-[10px] font-mono text-zinc-500">
@@ -484,19 +484,19 @@ export function ImageExtractStudio({ onApplyToGradient }: ImageExtractStudioProp
 
           {/* Live Gradient Preview Bar */}
           <div
-            className="h-14 w-full rounded-xl border border-white/10 shadow-lg"
+            className="h-14 w-full rounded-2xl border border-black/10 dark:border-white/10 shadow-lg"
             style={{ background: activeGradientCss }}
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-            <pre className="font-mono text-[11px] text-zinc-400 bg-black/60 px-3 py-1.5 rounded border border-white/5 select-all overflow-x-auto">
+            <pre className="font-mono text-[11px] text-zinc-700 dark:text-zinc-400 bg-white dark:bg-black/60 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-white/5 select-all overflow-x-auto">
               <code>background: {activeGradientCss};</code>
             </pre>
 
             <button
               type="button"
               onClick={() => onApplyToGradient(gradientStops.map((s) => s.hex))}
-              className="flex items-center gap-1.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 text-xs font-semibold transition-all cursor-pointer shadow-md"
+              className="flex items-center gap-1.5 rounded-full bg-zinc-900 dark:bg-zinc-100 hover:bg-black dark:hover:bg-white text-white dark:text-zinc-950 px-5 py-2 text-xs font-semibold transition-all cursor-pointer shadow-md"
             >
               <Zap className="h-3.5 w-3.5" />
               <span>Apply to Studio Gradient Canvas</span>

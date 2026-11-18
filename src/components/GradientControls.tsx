@@ -48,13 +48,13 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
   };
 
   return (
-    <div className="space-y-5 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
-      <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
+    <div className="space-y-5 rounded-3xl border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 p-5 sm:p-6 shadow-lg dark:shadow-xl transition-colors duration-200">
+      <div className="flex items-center justify-between border-b border-zinc-200 dark:border-white/[0.08] pb-3">
         <div>
-          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
             Gradient Architecture
           </h3>
-          <p className="text-[11px] text-zinc-400">
+          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
             Sub-pixel multi-stop interpolations &amp; color spaces.
           </p>
         </div>
@@ -62,7 +62,7 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
 
       {/* Gradient Mathematical Engine Type */}
       <div className="space-y-2">
-        <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+        <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           Geometry Type
         </label>
         <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
@@ -71,10 +71,10 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
               key={t}
               type="button"
               onClick={() => handleTypeChange(t)}
-              className={`rounded-lg border px-2.5 py-1.5 text-xs font-medium capitalize transition-all cursor-pointer ${
+              className={`rounded-full border px-2.5 py-1.5 text-xs font-medium capitalize transition-all cursor-pointer ${
                 state.type === t
-                  ? 'border-white/20 bg-zinc-800 text-white shadow-xs font-semibold'
-                  : 'border-white/[0.06] bg-zinc-900/60 text-zinc-400 hover:text-zinc-200'
+                  ? 'border-zinc-800 dark:border-white/20 bg-zinc-900 dark:bg-zinc-800 text-white shadow-xs font-semibold'
+                  : 'border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/60 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-200'
               }`}
             >
               {t.replace('-', ' ')}
@@ -84,9 +84,9 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
       </div>
 
       {/* Modern CSS Color Space Interpolator */}
-      <div className="space-y-2 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3">
+      <div className="space-y-2 rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3">
         <div className="flex items-center justify-between">
-          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
             Color Interpolation Space
           </label>
           <span className="text-[9px] font-mono text-zinc-500">CSS Color 4</span>
@@ -101,10 +101,10 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
               key={cs.id}
               type="button"
               onClick={() => handleColorSpaceChange(cs.id as ColorSpace)}
-              className={`flex flex-col items-center rounded-lg border px-2 py-1.5 text-center transition-all cursor-pointer ${
+              className={`flex flex-col items-center rounded-xl border px-2 py-1.5 text-center transition-all cursor-pointer ${
                 (state.colorSpace || 'oklch') === cs.id
-                  ? 'border-white/20 bg-zinc-800 text-white shadow-xs'
-                  : 'border-white/[0.05] bg-zinc-950/60 text-zinc-400 hover:text-zinc-200'
+                  ? 'border-zinc-800 dark:border-white/20 bg-zinc-900 dark:bg-zinc-800 text-white shadow-xs'
+                  : 'border-zinc-200 dark:border-white/[0.05] bg-white dark:bg-zinc-950/60 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-200'
               }`}
             >
               <span className="text-xs font-semibold">{cs.label}</span>
@@ -116,10 +116,10 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
 
       {/* Angle Selector (Linear & Conic) */}
       {(state.type === 'linear' || state.type === 'repeating-linear' || state.type === 'conic') && (
-        <div className="space-y-2.5 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5">
+        <div className="space-y-2.5 rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5">
           <div className="flex items-center justify-between">
-            <label className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
-              <RotateCw className="h-3 w-3 text-zinc-400" />
+            <label className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-400">
+              <RotateCw className="h-3 w-3 text-zinc-500 dark:text-zinc-400" />
               <span>Angle: {state.angle}°</span>
             </label>
             <input
@@ -128,7 +128,7 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
               max={360}
               value={state.angle}
               onChange={(e) => handleAngleChange(Number(e.target.value) || 0)}
-              className="w-16 rounded-md border border-white/10 bg-zinc-950 px-2 py-0.5 text-center font-mono text-xs text-white"
+              className="w-16 rounded-lg border border-zinc-300 dark:border-white/10 bg-white dark:bg-zinc-950 px-2 py-0.5 text-center font-mono text-xs text-zinc-900 dark:text-white"
             />
           </div>
 
@@ -148,10 +148,10 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
                 key={a}
                 type="button"
                 onClick={() => handleAngleChange(a)}
-                className={`rounded px-1.5 py-0.5 font-mono text-[10px] transition-all cursor-pointer ${
+                className={`rounded-full px-2 py-0.5 font-mono text-[10px] transition-all cursor-pointer ${
                   state.angle === a
-                    ? 'bg-zinc-800 text-white font-bold border border-white/10'
-                    : 'text-zinc-500 hover:text-zinc-300'
+                    ? 'bg-zinc-900 dark:bg-zinc-800 text-white font-bold border border-zinc-800 dark:border-white/10 shadow-xs'
+                    : 'text-zinc-500 hover:text-black dark:hover:text-zinc-300'
                 }`}
               >
                 {a}°
@@ -206,14 +206,14 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
       {/* Color Stops Sequence */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Color Stops ({state.stops.length})
           </label>
           {state.stops.length < 8 && (
             <button
               type="button"
               onClick={handleAddStop}
-              className="flex items-center gap-1 rounded-md border border-white/10 bg-zinc-900 px-2 py-1 text-[11px] font-medium text-zinc-200 transition-all hover:bg-zinc-800 cursor-pointer shadow-xs"
+              className="flex items-center gap-1 rounded-full border border-zinc-300 dark:border-white/10 bg-zinc-900 dark:bg-zinc-800 px-3 py-1 text-[11px] font-medium text-white transition-all hover:bg-black dark:hover:bg-zinc-700 cursor-pointer shadow-xs"
             >
               <Plus className="h-3 w-3" />
               <span>Add Stop</span>
@@ -222,9 +222,9 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
         </div>
 
         {/* Visual Stop Distribution Track */}
-        <div className="relative h-6 w-full rounded-lg border border-white/10 bg-zinc-950 p-1">
+        <div className="relative h-6 w-full rounded-full border border-zinc-300 dark:border-white/10 bg-slate-100 dark:bg-zinc-950 p-1">
           <div
-            className="h-full w-full rounded"
+            className="h-full w-full rounded-full"
             style={{
               background: `linear-gradient(to right, ${state.stops
                 .map((s) => `${s.color} ${s.position}%`)
@@ -238,7 +238,7 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
           {state.stops.map((stop, idx) => (
             <div
               key={stop.id}
-              className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-zinc-900/50 p-2.5 transition-all hover:border-white/10"
+              className="flex items-center gap-2.5 rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/50 p-2.5 transition-all hover:border-zinc-300 dark:hover:border-white/10 shadow-xs"
             >
               <span className="font-mono text-[10px] font-bold text-zinc-500 w-4">#{idx + 1}</span>
 
@@ -248,13 +248,13 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
                   type="color"
                   value={stop.color}
                   onChange={(e) => handleStopChange(stop.id, e.target.value, stop.position)}
-                  className="h-7 w-7 rounded cursor-pointer border-0 bg-transparent p-0"
+                  className="h-7 w-7 rounded-full cursor-pointer border-0 bg-transparent p-0"
                 />
                 <input
                   type="text"
                   value={stop.color}
                   onChange={(e) => handleStopChange(stop.id, e.target.value, stop.position)}
-                  className="w-18 rounded border border-white/10 bg-zinc-950 px-1.5 py-0.5 font-mono text-xs text-zinc-300"
+                  className="w-18 rounded-lg border border-zinc-300 dark:border-white/10 bg-white dark:bg-zinc-950 px-1.5 py-0.5 font-mono text-xs text-zinc-800 dark:text-zinc-300"
                 />
               </div>
 
@@ -270,7 +270,7 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
                   }
                   className="w-full cursor-pointer"
                 />
-                <span className="font-mono text-xs text-zinc-400 w-10 text-right">
+                <span className="font-mono text-xs text-zinc-600 dark:text-zinc-400 w-10 text-right">
                   {stop.position}%
                 </span>
               </div>
@@ -280,7 +280,7 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
                 <button
                   type="button"
                   onClick={() => handleDeleteStop(stop.id)}
-                  className="rounded p-1 text-zinc-600 hover:text-rose-400 transition-colors cursor-pointer"
+                  className="rounded-full p-1 text-zinc-400 hover:text-rose-500 transition-colors cursor-pointer"
                   title="Remove Stop"
                 >
                   <Trash2 className="h-3.5 w-3.5" />

@@ -162,7 +162,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#08090d] text-zinc-100">
+    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-[#08090d] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
       <Navbar
         activeMode={activeMode}
         onSelectMode={setActiveMode}

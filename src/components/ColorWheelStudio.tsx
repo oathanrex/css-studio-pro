@@ -172,32 +172,32 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
   };
 
   return (
-    <div className="space-y-6 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 sm:p-7 shadow-2xl">
+    <div className="space-y-6 rounded-3xl border border-zinc-200/90 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 p-6 sm:p-8 shadow-xl dark:shadow-2xl transition-colors duration-200">
       {/* Header & Mode Selectors */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-white/[0.08] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-zinc-100">
+            <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
               Interactive Color Wheel Studio
             </h2>
-            <span className="rounded bg-zinc-800 border border-white/10 px-1.5 py-0.5 text-[9px] font-mono text-zinc-300">
+            <span className="rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-white/10 px-2 py-0.5 text-[9px] font-mono text-zinc-700 dark:text-zinc-300">
               HARMONY ENGINE
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
             10 mathematical harmony rules with polar coordinates, tint ladders, and OKLCH wide-gamut precision.
           </p>
         </div>
 
         {/* Color Space Toggle */}
-        <div className="flex items-center gap-1 rounded-xl border border-white/[0.08] bg-zinc-900/60 p-1 shadow-inner">
+        <div className="flex items-center gap-1 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-zinc-900/60 p-1 shadow-inner">
           <button
             type="button"
             onClick={() => setColorSpaceMode('hsl')}
-            className={`rounded-lg px-2.5 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
+            className={`rounded-full px-3 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
               colorSpaceMode === 'hsl'
-                ? 'bg-zinc-800 text-white shadow-xs border border-white/10'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs border border-zinc-200 dark:border-white/10'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white'
             }`}
           >
             Classic HSL
@@ -205,10 +205,10 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
           <button
             type="button"
             onClick={() => setColorSpaceMode('oklch')}
-            className={`rounded-lg px-2.5 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
+            className={`rounded-full px-3 py-1 text-xs font-mono font-medium transition-all cursor-pointer ${
               colorSpaceMode === 'oklch'
-                ? 'bg-zinc-800 text-white shadow-xs border border-white/10'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs border border-zinc-200 dark:border-white/10'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white'
             }`}
           >
             OKLCH Perceptual
@@ -223,10 +223,10 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
             key={r.id}
             type="button"
             onClick={() => handleRuleChange(r.id)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+            className={`rounded-full px-3.5 py-1.5 text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
               activeRule === r.id
-                ? 'bg-zinc-800 text-white font-semibold border border-white/15 shadow-xs'
-                : 'border border-white/[0.04] bg-zinc-900/40 text-zinc-400 hover:text-white hover:bg-zinc-900'
+                ? 'bg-zinc-900 dark:bg-zinc-800 text-white font-semibold border border-zinc-800 dark:border-white/15 shadow-xs'
+                : 'border border-zinc-200 dark:border-white/[0.04] bg-zinc-100/70 dark:bg-zinc-900/40 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-900'
             }`}
           >
             {r.label}
@@ -407,11 +407,11 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
             </div>
 
             {/* Studio Integration Buttons */}
-            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/[0.06]">
+            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-zinc-200 dark:border-white/[0.06]">
               <button
                 type="button"
                 onClick={() => onApplyToGradient(swatches.map((s) => s.hex))}
-                className="flex-1 flex items-center justify-center gap-1.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 px-3 py-2 text-xs font-semibold transition-all cursor-pointer shadow-md"
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-full bg-zinc-900 dark:bg-zinc-100 hover:bg-black dark:hover:bg-white text-white dark:text-zinc-950 px-4 py-2 text-xs font-semibold transition-all cursor-pointer shadow-md"
               >
                 <Zap className="h-3.5 w-3.5" />
                 <span>Apply as Live Gradient</span>
@@ -420,27 +420,27 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
               <button
                 type="button"
                 onClick={() => handleCopy('css')}
-                className="flex items-center gap-1 rounded-lg border border-white/10 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 text-xs font-mono font-medium transition-all cursor-pointer shadow-xs"
+                className="flex items-center gap-1 rounded-full border border-zinc-300 dark:border-white/10 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 px-3.5 py-2 text-xs font-mono font-medium transition-all cursor-pointer shadow-xs"
               >
-                {copiedFormat === 'css' ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedFormat === 'css' ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                 <span>:root CSS</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleCopy('tailwind')}
-                className="flex items-center gap-1 rounded-lg border border-white/10 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 text-xs font-mono font-medium transition-all cursor-pointer shadow-xs"
+                className="flex items-center gap-1 rounded-full border border-zinc-300 dark:border-white/10 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 px-3.5 py-2 text-xs font-mono font-medium transition-all cursor-pointer shadow-xs"
               >
-                {copiedFormat === 'tailwind' ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedFormat === 'tailwind' ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                 <span>Tailwind</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleCopy('json')}
-                className="flex items-center gap-1 rounded-lg border border-white/10 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 text-xs font-mono font-medium transition-all cursor-pointer shadow-xs"
+                className="flex items-center gap-1 rounded-full border border-zinc-300 dark:border-white/10 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 px-3.5 py-2 text-xs font-mono font-medium transition-all cursor-pointer shadow-xs"
               >
-                {copiedFormat === 'json' ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedFormat === 'json' ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                 <span>JSON</span>
               </button>
             </div>
@@ -455,35 +455,35 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
           return (
             <div
               key={s.id}
-              className={`rounded-xl border p-3.5 space-y-3 transition-all ${
+              className={`rounded-2xl border p-3.5 space-y-3 transition-all ${
                 s.isBase
-                  ? 'border-white/30 bg-zinc-900/80 shadow-lg'
-                  : 'border-white/[0.06] bg-zinc-900/40 hover:border-white/15'
+                  ? 'border-zinc-400 dark:border-white/30 bg-zinc-100 dark:bg-zinc-900/80 shadow-md'
+                  : 'border-zinc-200 dark:border-white/[0.06] bg-zinc-50 dark:bg-zinc-900/40 hover:border-zinc-300 dark:hover:border-white/15 shadow-xs'
               }`}
             >
               {/* Swatch Header */}
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase">
+                <span className="font-mono text-[10px] font-bold text-zinc-600 dark:text-zinc-400 uppercase">
                   #{idx + 1} {s.isBase ? '(Base Key)' : ''}
                 </span>
 
                 <button
                   type="button"
                   onClick={() => handleSetBase(s.id)}
-                  className={`rounded p-1 transition-colors cursor-pointer ${
+                  className={`rounded-full p-1 transition-colors cursor-pointer ${
                     s.isBase
-                      ? 'text-white bg-white/20'
-                      : 'text-zinc-500 hover:text-zinc-300'
+                      ? 'text-zinc-900 dark:text-white bg-zinc-300 dark:bg-white/20'
+                      : 'text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-zinc-300'
                   }`}
                   title={s.isBase ? 'Locked Base Key Color' : 'Click to Set as Base Key'}
                 >
-                  {s.isBase ? <Lock className="h-3.5 w-3.5 text-white" /> : <Unlock className="h-3.5 w-3.5" />}
+                  {s.isBase ? <Lock className="h-3.5 w-3.5" /> : <Unlock className="h-3.5 w-3.5" />}
                 </button>
               </div>
 
               {/* Color Swatch Preview Tile */}
               <div
-                className="h-14 w-full rounded-lg border border-white/10 shadow-inner flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02]"
+                className="h-14 w-full rounded-xl border border-black/10 dark:border-white/10 shadow-inner flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02]"
                 style={{ backgroundColor: s.hex }}
                 onClick={() => {
                   navigator.clipboard.writeText(s.hex);
@@ -493,7 +493,7 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
                 title="Click to copy Hex"
               >
                 <span
-                  className="font-mono text-xs font-bold px-2 py-0.5 rounded shadow-xs"
+                  className="font-mono text-xs font-bold px-2 py-0.5 rounded-full shadow-xs"
                   style={{
                     backgroundColor: s.hsl.l > 50 ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
                     color: s.hsl.l > 50 ? '#ffffff' : '#000000',
@@ -506,7 +506,7 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
               {/* 7-Step Tint/Shade Ladder (Matching Adobe Color) */}
               <div className="space-y-1">
                 <span className="text-[9px] font-mono text-zinc-500 uppercase">Tint / Shade Ladder:</span>
-                <div className="grid grid-cols-7 h-5 rounded overflow-hidden border border-white/10">
+                <div className="grid grid-cols-7 h-5 rounded-lg overflow-hidden border border-black/10 dark:border-white/10">
                   {TINT_STOPS.map((l) => {
                     const tintHex = rgbToHex(hslToRgb({ h: s.hsl.h, s: s.hsl.s, l }));
                     return (
@@ -642,13 +642,13 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
               </div>
 
               {/* Exact Hex Input */}
-              <div className="flex items-center justify-between border-t border-white/[0.06] pt-2">
-                <span className="font-mono text-[10px] text-zinc-400">HEX:</span>
+              <div className="flex items-center justify-between border-t border-zinc-200 dark:border-white/[0.06] pt-2">
+                <span className="font-mono text-[10px] text-zinc-500 dark:text-zinc-400">HEX:</span>
                 <input
                   type="text"
                   value={s.hex}
                   onChange={(e) => handleColorChange(s.id, e.target.value)}
-                  className="w-24 rounded border border-white/10 bg-zinc-950 px-2 py-0.5 text-right font-mono text-xs text-white"
+                  className="w-24 rounded-lg border border-zinc-300 dark:border-white/10 bg-white dark:bg-zinc-950 px-2 py-0.5 text-right font-mono text-xs text-zinc-900 dark:text-white"
                 />
               </div>
             </div>

@@ -82,28 +82,28 @@ export function LiveCanvas({
 
   return (
     <div
-      className={`relative flex flex-col items-center justify-center rounded-2xl border border-white/[0.08] transition-all overflow-hidden ${backdropClasses} ${
-        fullscreen ? 'fixed inset-0 z-50 rounded-none' : 'min-h-[420px] w-full p-6 shadow-2xl'
+      className={`relative flex flex-col items-center justify-center rounded-3xl border border-zinc-200 dark:border-white/[0.08] transition-all overflow-hidden ${backdropClasses} ${
+        fullscreen ? 'fixed inset-0 z-50 rounded-none' : 'min-h-[420px] w-full p-6 shadow-xl dark:shadow-2xl'
       }`}
     >
       {/* Precision CAD Crosshair Markers */}
-      <span className="absolute top-3 left-3 font-mono text-[10px] text-zinc-600 select-none">+ 0,0</span>
-      <span className="absolute bottom-3 left-3 font-mono text-[10px] text-zinc-600 select-none">✕ CANVAS</span>
+      <span className="absolute top-3 left-3 font-mono text-[10px] text-zinc-400 dark:text-zinc-600 select-none">+ 0,0</span>
+      <span className="absolute bottom-3 left-3 font-mono text-[10px] text-zinc-400 dark:text-zinc-600 select-none">✕ CANVAS</span>
 
       {/* Floating Precision Toolbar */}
-      <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-xl border border-white/[0.08] bg-zinc-950/90 p-1 backdrop-blur-xl z-20 shadow-xl">
+      <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-white/90 dark:bg-zinc-950/90 p-1 backdrop-blur-xl z-20 shadow-lg">
         {/* Aspect Ratio Switcher */}
         {mode === 'gradient' && (
-          <div className="flex items-center gap-0.5 border-r border-white/10 pr-1.5 mr-0.5">
+          <div className="flex items-center gap-0.5 border-r border-zinc-200 dark:border-white/10 pr-1.5 mr-0.5">
             {(['fluid', '16:9', '9:16', '1:1'] as const).map((ratio) => (
               <button
                 key={ratio}
                 type="button"
                 onClick={() => setAspectRatio(ratio)}
-                className={`rounded-md px-2 py-1 text-[10px] font-mono font-medium transition-all cursor-pointer ${
+                className={`rounded-full px-2.5 py-1 text-[10px] font-mono font-medium transition-all cursor-pointer ${
                   aspectRatio === ratio
-                    ? 'bg-zinc-800 text-white shadow-xs'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-zinc-900 dark:bg-zinc-800 text-white shadow-xs'
+                    : 'text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white'
                 }`}
                 title={`Aspect Ratio: ${ratio}`}
               >
@@ -118,8 +118,8 @@ export function LiveCanvas({
           <button
             type="button"
             onClick={() => setBackdrop('dark')}
-            className={`rounded-md p-1.5 transition-all cursor-pointer ${
-              backdrop === 'dark' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'
+            className={`rounded-full p-1.5 transition-all cursor-pointer ${
+              backdrop === 'dark' ? 'bg-zinc-900 dark:bg-zinc-800 text-white' : 'text-zinc-500 hover:text-black dark:hover:text-white'
             }`}
             title="Obsidian Grid"
           >
@@ -129,8 +129,8 @@ export function LiveCanvas({
           <button
             type="button"
             onClick={() => setBackdrop('light')}
-            className={`rounded-md p-1.5 transition-all cursor-pointer ${
-              backdrop === 'light' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'
+            className={`rounded-full p-1.5 transition-all cursor-pointer ${
+              backdrop === 'light' ? 'bg-zinc-900 dark:bg-zinc-800 text-white' : 'text-zinc-500 hover:text-black dark:hover:text-white'
             }`}
             title="Clean Light Grid"
           >
@@ -140,8 +140,8 @@ export function LiveCanvas({
           <button
             type="button"
             onClick={() => setBackdrop('checker')}
-            className={`rounded-md p-1.5 transition-all cursor-pointer ${
-              backdrop === 'checker' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'
+            className={`rounded-full p-1.5 transition-all cursor-pointer ${
+              backdrop === 'checker' ? 'bg-zinc-900 dark:bg-zinc-800 text-white' : 'text-zinc-500 hover:text-black dark:hover:text-white'
             }`}
             title="Alpha Transparency"
           >
@@ -150,11 +150,11 @@ export function LiveCanvas({
         </div>
 
         {/* Fullscreen Mode */}
-        <div className="border-l border-white/10 pl-1.5 ml-0.5">
+        <div className="border-l border-zinc-200 dark:border-white/10 pl-1.5 ml-0.5">
           <button
             type="button"
             onClick={() => setFullscreen(!fullscreen)}
-            className="rounded-md p-1.5 text-zinc-500 hover:text-white transition-all cursor-pointer"
+            className="rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-all cursor-pointer"
             title={fullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
           >
             {fullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
@@ -306,7 +306,7 @@ export function LiveCanvas({
 
       {/* WCAG Contrast Inspector Bar (Bottom) */}
       {mode === 'gradient' && (
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 w-full border-t border-white/[0.06] pt-3 text-xs">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 w-full border-t border-zinc-200 dark:border-white/[0.06] pt-3 text-xs">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 font-mono text-[11px] text-zinc-400">
               <Eye className="h-3.5 w-3.5 text-zinc-500" />

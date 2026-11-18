@@ -141,15 +141,15 @@ font-weight: ${textGrad.fontWeight};`;
   };
 
   return (
-    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
+    <div className="space-y-4 rounded-3xl border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 p-5 sm:p-6 shadow-lg dark:shadow-xl transition-colors duration-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 dark:border-white/[0.08] pb-3">
         <div className="flex items-center gap-2">
-          <Code2 className="h-4 w-4 text-zinc-400" />
+          <Code2 className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
               Code Exporter
             </h3>
-            <p className="text-[11px] text-zinc-400">
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
               Production-ready syntax for Web, Mobile &amp; Vector.
             </p>
           </div>
@@ -169,10 +169,10 @@ font-weight: ${textGrad.fontWeight};`;
               key={f.id}
               type="button"
               onClick={() => setActiveFormat(f.id as any)}
-              className={`rounded-lg px-2.5 py-1 text-[11px] font-mono font-medium transition-all cursor-pointer ${
+              className={`rounded-full px-3 py-1 text-[11px] font-mono font-medium transition-all cursor-pointer ${
                 activeFormat === f.id
-                  ? 'bg-zinc-800 text-white font-semibold border border-white/10 shadow-xs'
-                  : 'text-zinc-500 hover:text-zinc-300'
+                  ? 'bg-zinc-900 dark:bg-zinc-800 text-white font-semibold border border-zinc-800 dark:border-white/10 shadow-xs'
+                  : 'text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-200'
               }`}
             >
               {f.label}
@@ -182,24 +182,24 @@ font-weight: ${textGrad.fontWeight};`;
       </div>
 
       {/* Code Snippet Box */}
-      <div className="relative rounded-xl border border-white/[0.06] bg-[#050608] p-4">
-        <pre className="font-mono text-xs leading-relaxed text-zinc-300 overflow-x-auto select-all max-h-48 scrollbar-none">
+      <div className="relative rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-[#050608] p-4">
+        <pre className="font-mono text-xs leading-relaxed text-zinc-800 dark:text-zinc-300 overflow-x-auto select-all max-h-48 scrollbar-none">
           <code>{activeSnippet}</code>
         </pre>
 
         <button
           type="button"
           onClick={handleCopy}
-          className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg border border-white/10 bg-zinc-900/90 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-all hover:bg-zinc-800 hover:text-white cursor-pointer shadow-md"
+          className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-zinc-300 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 px-3.5 py-1.5 text-xs font-medium text-zinc-800 dark:text-zinc-200 transition-all hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer shadow-md"
         >
           {copied ? (
             <>
-              <Check className="h-3.5 w-3.5 text-emerald-400" />
-              <span className="text-emerald-400 font-semibold">Copied!</span>
+              <Check className="h-3.5 w-3.5 text-emerald-500" />
+              <span className="text-emerald-500 font-semibold">Copied!</span>
             </>
           ) : (
             <>
-              <Copy className="h-3.5 w-3.5 text-zinc-400" />
+              <Copy className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
               <span>Copy Code</span>
             </>
           )}

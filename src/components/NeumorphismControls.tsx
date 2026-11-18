@@ -8,20 +8,20 @@ interface NeumorphismControlsProps {
 
 export function NeumorphismControls({ state, onChange }: NeumorphismControlsProps) {
   return (
-    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
-      <div className="border-b border-white/[0.08] pb-3">
-        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+    <div className="space-y-4 rounded-3xl border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 p-5 sm:p-6 shadow-lg dark:shadow-xl transition-colors duration-200">
+      <div className="border-b border-zinc-200 dark:border-white/[0.08] pb-3">
+        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
           Neumorphism Tactile Studio
         </h3>
-        <p className="text-[11px] text-zinc-400">
+        <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
           Soft UI extruded and debossed tactile surfaces.
         </p>
       </div>
 
       <div className="space-y-3.5 text-xs">
         {/* Surface Shape */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
             Surface Curvature
           </label>
           <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
@@ -30,10 +30,10 @@ export function NeumorphismControls({ state, onChange }: NeumorphismControlsProp
                 key={shape}
                 type="button"
                 onClick={() => onChange({ ...state, shape })}
-                className={`rounded-lg border px-2 py-1.5 text-center font-mono text-[11px] capitalize transition-all cursor-pointer ${
+                className={`rounded-full border px-2 py-1.5 text-center font-mono text-[11px] capitalize transition-all cursor-pointer ${
                   state.shape === shape
-                    ? 'border-white/20 bg-zinc-800 text-white font-semibold shadow-xs'
-                    : 'border-white/[0.06] bg-zinc-950/60 text-zinc-400 hover:text-white'
+                    ? 'border-zinc-800 dark:border-white/20 bg-zinc-900 dark:bg-zinc-800 text-white font-semibold shadow-xs'
+                    : 'border-zinc-200 dark:border-white/[0.06] bg-white dark:bg-zinc-950/60 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white'
                 }`}
               >
                 {shape}
@@ -43,10 +43,10 @@ export function NeumorphismControls({ state, onChange }: NeumorphismControlsProp
         </div>
 
         {/* Distance Slider */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
             <span>Light Distance</span>
-            <span className="text-zinc-200">{state.distance}px</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{state.distance}px</span>
           </div>
           <input
             type="range"
@@ -59,10 +59,10 @@ export function NeumorphismControls({ state, onChange }: NeumorphismControlsProp
         </div>
 
         {/* Blur Slider */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
             <span>Shadow Softness</span>
-            <span className="text-zinc-200">{state.blur}px</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{state.blur}px</span>
           </div>
           <input
             type="range"
@@ -75,8 +75,8 @@ export function NeumorphismControls({ state, onChange }: NeumorphismControlsProp
         </div>
 
         {/* Base Color */}
-        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
-          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40 p-3.5 space-y-1.5 shadow-xs">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
             Base Canvas Surface Color
           </label>
           <div className="flex items-center gap-2">
@@ -84,9 +84,9 @@ export function NeumorphismControls({ state, onChange }: NeumorphismControlsProp
               type="color"
               value={state.baseColor}
               onChange={(e) => onChange({ ...state, baseColor: e.target.value })}
-              className="h-7 w-7 rounded cursor-pointer border-0 bg-transparent p-0"
+              className="h-7 w-7 rounded-full cursor-pointer border-0 bg-transparent p-0"
             />
-            <span className="font-mono text-zinc-300 text-xs">{state.baseColor}</span>
+            <span className="font-mono text-zinc-800 dark:text-zinc-300 text-xs font-semibold">{state.baseColor}</span>
           </div>
         </div>
       </div>
