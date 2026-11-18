@@ -1,15 +1,15 @@
 # 🌈 CSS Studio Pro (CSSG)
 
-> **The Ultimate Visual CSS Design & Gradient Studio by [Oathan Rex](https://oathanrex.github.io/).**  
+> **Official Visual CSS Design & Gradient Studio by [Oathan Rex](https://oathanrex.github.io/).**  
 > Create modern, high-performance CSS gradients, glassmorphism frosted glass, neumorphism soft UI, multi-layer box shadows, and animated CSS buttons with instant Tailwind CSS and PNG wallpaper export.
 
-🌐 **Live Website**: [https://oathanrex.github.io/cssg/](https://oathanrex.github.io/cssg/)
+🌐 **Official Live Platform**: [https://oathanrex.github.io/cssg/](https://oathanrex.github.io/cssg/)
 
 ---
 
-## ⚡ Key Features
+## ⚡ Features & Capabilities
 
-- 🎨 **Multi-Paradigm Gradient Generator**:
+- 🎨 **Multi-Paradigm Gradient Engine**:
   - **Linear Gradients**: 360° interactive angle dial, precision degree input, quick-angle presets.
   - **Radial Gradients**: Circle vs Ellipse, custom focal positions (center, top, bottom, corners).
   - **Conic Gradients**: 360° rotational color sweeps for dials, color wheels, and conic ray effects.
@@ -36,51 +36,13 @@
   - Scalable SVG `<linearGradient>`
 - 🖼️ **4K PNG Wallpaper Export**:
   - 1-click download of your customized gradient as a full 1080p / 4K high-resolution PNG image.
-- 🚀 **100/100 Core Web Vitals**:
-  - Zero external font files or render-blocking third-party scripts.
-  - Full client-side execution in your browser.
 
 ---
 
-## 🛠️ Tech Stack
+## 🔒 Platform Notice & Rights
 
-- **Framework**: React 19 + TypeScript
-- **Bundler**: Vite 8
-- **Styling**: Tailwind CSS v4
-- **Icons**: Lucide Icons
-- **Deployment**: GitHub Pages (`https://oathanrex.github.io/cssg/`)
+This repository exists exclusively to deploy and host the official web application at **[https://oathanrex.github.io/cssg/](https://oathanrex.github.io/cssg/)**.
 
----
-
-## 🚀 Local Development
-
-```bash
-# Clone the repository
-git clone https://github.com/oathanrex/cssg.git
-
-# Navigate into project directory
-cd cssg
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-### Production Build & Lint
-```bash
-# Typecheck
-npm run lint
-
-# Production build
-npm run build
-
-# Preview build locally
-npm run preview
-```
-
----
-
-## 📄 License
-MIT License © 2026 [Oathan Rex](https://oathanrex.github.io/). 100% Free and Open Source.
+- **Exclusivity**: This application is exclusively hosted on GitHub Pages by Oathan Rex.
+- **Copyright**: © 2026 [Oathan Rex](https://oathanrex.github.io/). All rights reserved.
+- **Restrictions**: Unauthorized replication, copying, re-hosting, scraping, or redistribution of this software and its proprietary assets is strictly prohibited.
