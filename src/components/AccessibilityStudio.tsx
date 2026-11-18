@@ -306,46 +306,54 @@ export function AccessibilityStudio({ currentPalette }: AccessibilityStudioProps
           </div>
         )}
 
-        {/* Comparative Side-by-Side Swatches */}
-        <div className="space-y-3">
-          {/* Row 1: True Normal Vision */}
-          <div>
-            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block mb-1">
-              Standard Trichromatic Vision (Original):
-            </span>
-            <div className="grid grid-cols-5 h-14 rounded-xl overflow-hidden border border-white/10 shadow-inner">
-              {currentPalette.map((hex, idx) => (
-                <div
-                  key={`norm-${idx}`}
-                  className="flex items-center justify-center font-mono text-[10px] font-bold text-white shadow-xs"
-                  style={{ backgroundColor: hex }}
-                >
-                  <span className="bg-black/60 px-1.5 py-0.5 rounded">{hex}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Row 2: Simulated Vision */}
-          <div>
-            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block mb-1">
-              Simulated Vision ({activeVision.toUpperCase()}):
-            </span>
-            <div className="grid grid-cols-5 h-14 rounded-xl overflow-hidden border border-white/10 shadow-inner">
+        {/* 4-Column Comparative Color Blindness Matrix (Adobe Color Signature) */}
+        <div className="overflow-x-auto rounded-xl border border-white/10 bg-zinc-950 p-4">
+          <table className="w-full text-left font-mono text-xs">
+            <thead>
+              <tr className="border-b border-white/[0.08] text-[10px] uppercase text-zinc-400">
+                <th className="pb-3 font-bold">Original Palette</th>
+                <th className="pb-3 font-bold">Deuteranopia (Green-Weak)</th>
+                <th className="pb-3 font-bold">Protanopia (Red-Weak)</th>
+                <th className="pb-3 font-bold">Tritanopia (Blue-Weak)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.04]">
               {currentPalette.map((hex, idx) => {
-                const simulatedHex = simulateHexColorBlindness(hex, activeVision);
+                const deut = simulateHexColorBlindness(hex, 'deuteranopia');
+                const prot = simulateHexColorBlindness(hex, 'protanopia');
+                const trit = simulateHexColorBlindness(hex, 'tritanopia');
+
                 return (
-                  <div
-                    key={`sim-${idx}`}
-                    className="flex items-center justify-center font-mono text-[10px] font-bold text-white shadow-xs"
-                    style={{ backgroundColor: simulatedHex }}
-                  >
-                    <span className="bg-black/60 px-1.5 py-0.5 rounded">{simulatedHex}</span>
-                  </div>
+                  <tr key={idx} className="hover:bg-zinc-900/40 transition-colors">
+                    <td className="py-2.5 pr-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="h-7 w-12 rounded border border-white/10 shadow-xs" style={{ backgroundColor: hex }} />
+                        <span className="text-zinc-200">{hex}</span>
+                      </div>
+                    </td>
+                    <td className="py-2.5 pr-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="h-7 w-12 rounded border border-white/10 shadow-xs" style={{ backgroundColor: deut }} />
+                        <span className="text-zinc-400">{deut}</span>
+                      </div>
+                    </td>
+                    <td className="py-2.5 pr-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="h-7 w-12 rounded border border-white/10 shadow-xs" style={{ backgroundColor: prot }} />
+                        <span className="text-zinc-400">{prot}</span>
+                      </div>
+                    </td>
+                    <td className="py-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="h-7 w-12 rounded border border-white/10 shadow-xs" style={{ backgroundColor: trit }} />
+                        <span className="text-zinc-400">{trit}</span>
+                      </div>
+                    </td>
+                  </tr>
                 );
               })}
-            </div>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

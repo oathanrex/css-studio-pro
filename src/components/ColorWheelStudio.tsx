@@ -5,6 +5,7 @@ import {
   LockOpen,
   Palette,
   RotateCw,
+  Sliders,
   Sparkles,
   Unlock,
   Zap,
@@ -37,9 +38,13 @@ const HARMONY_RULES: { id: HarmonyRule; label: string }[] = [
   { id: 'custom', label: 'Custom' },
 ];
 
+// Discrete 7-step tint/shade stops matching Adobe Color
+const TINT_STOPS = [10, 25, 40, 55, 70, 85, 95];
+
 export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
   const [activeRule, setActiveRule] = useState<HarmonyRule>('analogous');
   const [colorSpaceMode, setColorSpaceMode] = useState<'hsl' | 'oklch'>('hsl');
+  const [sliderModes, setSliderModes] = useState<Record<string, 'rgb' | 'hsl' | 'cmyk' | 'oklch'>>({});
   const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
 
   // Initialize base color (Titanium Liquid Accent: #6366f1)
@@ -104,11 +109,9 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
     const x = e.clientX - rect.left - wheelCenter;
     const y = e.clientY - rect.top - wheelCenter;
 
-    // Angle in degrees (0 to 360)
     let angle = (Math.atan2(y, x) * 180) / Math.PI;
     if (angle < 0) angle += 360;
 
-    // Saturation distance from center (0 to 100)
     const dist = Math.min(wheelRadius, Math.sqrt(x * x + y * y));
     const saturation = Math.round((dist / wheelRadius) * 100);
 
@@ -126,6 +129,14 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
 
   const handlePointerUp = () => {
     setActiveDragId(null);
+  };
+
+  // Toggle channel slider mode for a swatch card
+  const toggleSliderMode = (swatchId: string, mode: 'rgb' | 'hsl' | 'cmyk' | 'oklch') => {
+    setSliderModes((prev) => ({
+      ...prev,
+      [swatchId]: mode,
+    }));
   };
 
   // Copy Code
@@ -174,7 +185,7 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
             </span>
           </div>
           <p className="text-xs text-zinc-400 mt-0.5">
-            10 mathematical harmony rules with polar coordinates and OKLCH wide-gamut precision.
+            10 mathematical harmony rules with polar coordinates, tint ladders, and OKLCH wide-gamut precision.
           </p>
         </div>
 
@@ -225,7 +236,7 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
 
       {/* Centerpiece: Interactive Color Wheel & Spoke Viewport */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left: SVG Wheel (7 cols) */}
+        {/* Left: SVG Wheel (6 cols) */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center p-4">
           <div className="relative select-none touch-none">
             <svg
@@ -239,19 +250,18 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
               onPointerLeave={handlePointerUp}
             >
               <defs>
-                {/* 360° Conic Wheel Gradient */}
                 <radialGradient id="wheel-sat" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
                   <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
                 </radialGradient>
               </defs>
 
-              {/* Conic Wheel Background Image or Math Rings */}
+              {/* Conic Wheel Background */}
               <circle
                 cx={wheelCenter}
                 cy={wheelCenter}
                 r={wheelRadius}
-                fill="url(#conic-wheel-bg)"
+                fill="none"
                 stroke="rgba(255, 255, 255, 0.12)"
                 strokeWidth="2"
               />
@@ -271,7 +281,7 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
                 return <path key={i} d={path} fill={col} />;
               })}
 
-              {/* White Saturation Overlay Ring (Center is white/desaturated) */}
+              {/* White Saturation Overlay Ring */}
               <circle
                 cx={wheelCenter}
                 cy={wheelCenter}
@@ -332,17 +342,20 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
                     <circle
                       cx={px}
                       cy={py}
-                      r={s.isBase ? 13 : 10}
+                      r={s.isBase ? 14 : 10}
                       fill="none"
-                      stroke={s.isBase ? '#ffffff' : 'rgba(255, 255, 255, 0.8)'}
-                      strokeWidth={s.isBase ? 2.5 : 1.5}
+                      stroke={s.isBase ? '#ffffff' : 'rgba(255, 255, 255, 0.85)'}
+                      strokeWidth={s.isBase ? 3 : 1.5}
                       className="shadow-md"
                     />
                     {/* Inner Color Fill */}
                     <circle cx={px} cy={py} r={s.isBase ? 10 : 7} fill={s.hex} />
-                    {/* Base Color Key Star/Triangle */}
+                    {/* Base Color Pointer Marker (Adobe Triangle Signature) */}
                     {s.isBase && (
-                      <circle cx={px} cy={py} r={2.5} fill="#ffffff" />
+                      <polygon
+                        points={`${px},${py - 5} ${px + 4},${py + 3} ${px - 4},${py + 3}`}
+                        fill="#ffffff"
+                      />
                     )}
                   </g>
                 );
@@ -351,7 +364,7 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
           </div>
 
           <span className="mt-3 text-[11px] font-mono text-zinc-500">
-            Drag spokes to rotate harmonies · Star pin indicates locked base color
+            Drag spokes to rotate harmonies · Triangle handle marks locked Base Key
           </span>
         </div>
 
@@ -435,107 +448,212 @@ export function ColorWheelStudio({ onApplyToGradient }: ColorWheelStudioProps) {
         </div>
       </div>
 
-      {/* Bottom Swatch Cards Inspector */}
+      {/* Bottom Swatch Cards Inspector (with Tint Ladders & Channel Sliders) */}
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2">
-        {swatches.map((s, idx) => (
-          <div
-            key={s.id}
-            className={`rounded-xl border p-3.5 space-y-3 transition-all ${
-              s.isBase
-                ? 'border-white/30 bg-zinc-900/80 shadow-lg'
-                : 'border-white/[0.06] bg-zinc-900/40 hover:border-white/15'
-            }`}
-          >
-            {/* Swatch Header */}
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase">
-                #{idx + 1} {s.isBase ? '(Base Key)' : ''}
-              </span>
-
-              <button
-                type="button"
-                onClick={() => handleSetBase(s.id)}
-                className={`rounded p-1 transition-colors cursor-pointer ${
-                  s.isBase
-                    ? 'text-white bg-white/20'
-                    : 'text-zinc-500 hover:text-zinc-300'
-                }`}
-                title={s.isBase ? 'Locked Base Color' : 'Click to Set as Base Key Color'}
-              >
-                {s.isBase ? <Lock className="h-3.5 w-3.5 text-white" /> : <Unlock className="h-3.5 w-3.5" />}
-              </button>
-            </div>
-
-            {/* Color Swatch Preview Tile */}
+        {swatches.map((s, idx) => {
+          const currentMode = sliderModes[s.id] || 'hsl';
+          return (
             <div
-              className="h-14 w-full rounded-lg border border-white/10 shadow-inner flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02]"
-              style={{ backgroundColor: s.hex }}
-              onClick={() => {
-                navigator.clipboard.writeText(s.hex);
-                setCopiedFormat(s.id);
-                setTimeout(() => setCopiedFormat(null), 1500);
-              }}
-              title="Click to copy Hex"
+              key={s.id}
+              className={`rounded-xl border p-3.5 space-y-3 transition-all ${
+                s.isBase
+                  ? 'border-white/30 bg-zinc-900/80 shadow-lg'
+                  : 'border-white/[0.06] bg-zinc-900/40 hover:border-white/15'
+              }`}
             >
-              <span
-                className="font-mono text-xs font-bold px-2 py-0.5 rounded shadow-xs"
-                style={{
-                  backgroundColor: s.hsl.l > 50 ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
-                  color: s.hsl.l > 50 ? '#ffffff' : '#000000',
-                }}
-              >
-                {copiedFormat === s.id ? 'Copied!' : s.hex}
-              </span>
-            </div>
-
-            {/* Inputs & Channel Readouts */}
-            <div className="space-y-1.5 text-[10px] font-mono text-zinc-400">
+              {/* Swatch Header */}
               <div className="flex items-center justify-between">
-                <span>HEX:</span>
+                <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase">
+                  #{idx + 1} {s.isBase ? '(Base Key)' : ''}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => handleSetBase(s.id)}
+                  className={`rounded p-1 transition-colors cursor-pointer ${
+                    s.isBase
+                      ? 'text-white bg-white/20'
+                      : 'text-zinc-500 hover:text-zinc-300'
+                  }`}
+                  title={s.isBase ? 'Locked Base Key Color' : 'Click to Set as Base Key'}
+                >
+                  {s.isBase ? <Lock className="h-3.5 w-3.5 text-white" /> : <Unlock className="h-3.5 w-3.5" />}
+                </button>
+              </div>
+
+              {/* Color Swatch Preview Tile */}
+              <div
+                className="h-14 w-full rounded-lg border border-white/10 shadow-inner flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02]"
+                style={{ backgroundColor: s.hex }}
+                onClick={() => {
+                  navigator.clipboard.writeText(s.hex);
+                  setCopiedFormat(s.id);
+                  setTimeout(() => setCopiedFormat(null), 1500);
+                }}
+                title="Click to copy Hex"
+              >
+                <span
+                  className="font-mono text-xs font-bold px-2 py-0.5 rounded shadow-xs"
+                  style={{
+                    backgroundColor: s.hsl.l > 50 ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
+                    color: s.hsl.l > 50 ? '#ffffff' : '#000000',
+                  }}
+                >
+                  {copiedFormat === s.id ? 'Copied!' : s.hex}
+                </span>
+              </div>
+
+              {/* 7-Step Tint/Shade Ladder (Matching Adobe Color) */}
+              <div className="space-y-1">
+                <span className="text-[9px] font-mono text-zinc-500 uppercase">Tint / Shade Ladder:</span>
+                <div className="grid grid-cols-7 h-5 rounded overflow-hidden border border-white/10">
+                  {TINT_STOPS.map((l) => {
+                    const tintHex = rgbToHex(hslToRgb({ h: s.hsl.h, s: s.hsl.s, l }));
+                    return (
+                      <button
+                        key={l}
+                        type="button"
+                        onClick={() => handleColorChange(s.id, tintHex)}
+                        className="h-full w-full hover:scale-125 transition-transform cursor-pointer"
+                        style={{ backgroundColor: tintHex }}
+                        title={`Luminance: ${l}% (${tintHex})`}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Channel Mode Toggle (HSL, RGB, CMYK, OKLCH) */}
+              <div className="flex items-center justify-between border-t border-white/[0.06] pt-2">
+                <span className="text-[9px] font-mono text-zinc-400 uppercase">Sliders:</span>
+                <div className="flex items-center gap-1">
+                  {(['hsl', 'rgb', 'cmyk', 'oklch'] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => toggleSliderMode(s.id, m)}
+                      className={`text-[9px] font-mono uppercase px-1 rounded transition-colors ${
+                        currentMode === m
+                          ? 'bg-zinc-700 text-white font-bold'
+                          : 'text-zinc-500 hover:text-zinc-300'
+                      }`}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Channel Sliders per mode */}
+              <div className="space-y-1.5 text-[10px] font-mono text-zinc-400">
+                {currentMode === 'hsl' && (
+                  <>
+                    <div className="flex justify-between">
+                      <span>Hue: {s.hsl.h}°</span>
+                      <span>Sat: {s.hsl.s}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={360}
+                      value={s.hsl.h}
+                      onChange={(e) => {
+                        const newHsl = { ...s.hsl, h: Number(e.target.value) };
+                        handleColorChange(s.id, rgbToHex(hslToRgb(newHsl)));
+                      }}
+                      className="w-full cursor-pointer"
+                    />
+                    <div className="flex justify-between pt-1">
+                      <span>Lightness</span>
+                      <span>{s.hsl.l}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={5}
+                      max={95}
+                      value={s.hsl.l}
+                      onChange={(e) => {
+                        const newHsl = { ...s.hsl, l: Number(e.target.value) };
+                        handleColorChange(s.id, rgbToHex(hslToRgb(newHsl)));
+                      }}
+                      className="w-full cursor-pointer"
+                    />
+                  </>
+                )}
+
+                {currentMode === 'rgb' && (
+                  <>
+                    <div className="flex justify-between">
+                      <span>R: {s.rgb.r}</span>
+                      <span>G: {s.rgb.g}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={255}
+                      value={s.rgb.r}
+                      onChange={(e) => {
+                        const newRgb = { ...s.rgb, r: Number(e.target.value) };
+                        handleColorChange(s.id, rgbToHex(newRgb));
+                      }}
+                      className="w-full cursor-pointer"
+                    />
+                    <div className="flex justify-between pt-1">
+                      <span>B: {s.rgb.b}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={255}
+                      value={s.rgb.b}
+                      onChange={(e) => {
+                        const newRgb = { ...s.rgb, b: Number(e.target.value) };
+                        handleColorChange(s.id, rgbToHex(newRgb));
+                      }}
+                      className="w-full cursor-pointer"
+                    />
+                  </>
+                )}
+
+                {currentMode === 'cmyk' && (
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span>C: {s.cmyk.c}%</span>
+                      <span>M: {s.cmyk.m}%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Y: {s.cmyk.y}%</span>
+                      <span>K: {s.cmyk.k}%</span>
+                    </div>
+                  </div>
+                )}
+
+                {currentMode === 'oklch' && (
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span>L: {s.oklch.l}</span>
+                      <span>C: {s.oklch.c}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Hue: {s.oklch.h}°</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Exact Hex Input */}
+              <div className="flex items-center justify-between border-t border-white/[0.06] pt-2">
+                <span className="font-mono text-[10px] text-zinc-400">HEX:</span>
                 <input
                   type="text"
                   value={s.hex}
                   onChange={(e) => handleColorChange(s.id, e.target.value)}
-                  className="w-20 rounded border border-white/10 bg-zinc-950 px-1.5 py-0.5 text-right font-mono text-xs text-white"
+                  className="w-24 rounded border border-white/10 bg-zinc-950 px-2 py-0.5 text-right font-mono text-xs text-white"
                 />
               </div>
-
-              <div className="flex items-center justify-between">
-                <span>RGB:</span>
-                <span className="text-zinc-300">{s.rgb.r}, {s.rgb.g}, {s.rgb.b}</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span>HSL:</span>
-                <span className="text-zinc-300">{s.hsl.h}°, {s.hsl.s}%, {s.hsl.l}%</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span>OKLCH:</span>
-                <span className="text-zinc-300">{s.oklch.l}, {s.oklch.c}, {s.oklch.h}°</span>
-              </div>
             </div>
-
-            {/* Lightness Adjustment Slider */}
-            <div className="space-y-1 pt-1 border-t border-white/[0.06]">
-              <div className="flex justify-between text-[9px] font-mono text-zinc-400">
-                <span>Luminance</span>
-                <span>{s.hsl.l}%</span>
-              </div>
-              <input
-                type="range"
-                min={5}
-                max={95}
-                value={s.hsl.l}
-                onChange={(e) => {
-                  const newHsl = { ...s.hsl, l: Number(e.target.value) };
-                  handleColorChange(s.id, rgbToHex(hslToRgb(newHsl)));
-                }}
-                className="w-full cursor-pointer"
-              />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
