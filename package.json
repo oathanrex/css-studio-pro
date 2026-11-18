@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "homepage": "https://oathanrex.github.io/cssg/",
+  "homepage": "https://oathanrex.github.io/css-studio-pro/",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",

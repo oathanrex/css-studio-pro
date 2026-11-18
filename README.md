@@ -3,7 +3,7 @@
 > **Official Visual CSS Design & Gradient Studio by [Oathan Rex](https://oathanrex.github.io/).**  
 > Create modern, high-performance CSS gradients, glassmorphism frosted glass, neumorphism soft UI, multi-layer box shadows, and animated CSS buttons with instant Tailwind CSS and PNG wallpaper export.
 
-🌐 **Official Live Platform**: [https://oathanrex.github.io/cssg/](https://oathanrex.github.io/cssg/)
+🌐 **Official Live Platform**: [https://oathanrex.github.io/css-studio-pro/](https://oathanrex.github.io/css-studio-pro/)
 
 ---
 
@@ -41,7 +41,7 @@
 
 ## 🔒 Platform Notice & Rights
 
-This repository exists exclusively to deploy and host the official web application at **[https://oathanrex.github.io/cssg/](https://oathanrex.github.io/cssg/)**.
+This repository exists exclusively to deploy and host the official web application at **[https://oathanrex.github.io/css-studio-pro/](https://oathanrex.github.io/css-studio-pro/)**.
 
 - **Exclusivity**: This application is exclusively hosted on GitHub Pages by Oathan Rex.
 - **Copyright**: © 2026 [Oathan Rex](https://oathanrex.github.io/). All rights reserved.
