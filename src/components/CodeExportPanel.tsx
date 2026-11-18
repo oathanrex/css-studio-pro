@@ -1,6 +1,11 @@
 import { Check, Code2, Copy, FileCode } from 'lucide-react';
 import React, { useState } from 'react';
-import { buildSvgGradient, buildTailwindCss } from '../engine/gradientEngine';
+import {
+  buildAndroidXml,
+  buildFlutterCode,
+  buildSvgGradient,
+  buildTailwindCss,
+} from '../engine/gradientEngine';
 import type {
   ButtonState,
   GlassmorphismState,
@@ -32,13 +37,18 @@ export function CodeExportPanel({
   btn,
   textGrad,
 }: CodeExportPanelProps) {
-  const [activeFormat, setActiveFormat] = useState<'css' | 'tailwind' | 'react' | 'svg'>('css');
+  const [activeFormat, setActiveFormat] = useState<
+    'css' | 'tailwind' | 'react' | 'svg' | 'flutter' | 'android'
+  >('css');
   const [copied, setCopied] = useState(false);
 
   // Generate CSS based on mode
   let rawCss = `background: ${gradientCss};`;
   let tailwindCode = buildTailwindCss(gradient);
   let reactStyleCode = `style={{ background: '${gradientCss}' }}`;
+  let svgCode = buildSvgGradient(gradient);
+  let flutterCode = buildFlutterCode(gradient);
+  let androidCode = buildAndroidXml(gradient);
 
   if (mode === 'glassmorphism') {
     rawCss = `background: rgba(255, 255, 255, ${glass.opacity / 100});
@@ -60,8 +70,8 @@ ${glass.hasShadow ? 'box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);' : ''}`;
     const neuBlur = neu.blur;
     const shadowVal =
       neu.shape === 'pressed'
-        ? `inset ${neuOffset}px ${neuOffset}px ${neuBlur}px rgba(0,0,0,0.4), inset -${neuOffset}px -${neuOffset}px ${neuBlur}px rgba(255,255,255,0.1)`
-        : `${neuOffset}px ${neuOffset}px ${neuBlur}px rgba(0,0,0,0.5), -${neuOffset}px -${neuOffset}px ${neuBlur}px rgba(255,255,255,0.08)`;
+        ? `inset ${neuOffset}px ${neuOffset}px ${neuBlur}px rgba(0,0,0,0.6), inset -${neuOffset}px -${neuOffset}px ${neuBlur}px rgba(255,255,255,0.06)`
+        : `${neuOffset}px ${neuOffset}px ${neuBlur}px rgba(0,0,0,0.6), -${neuOffset}px -${neuOffset}px ${neuBlur}px rgba(255,255,255,0.05)`;
 
     rawCss = `background: ${neu.baseColor};
 border-radius: ${neu.radius}px;
@@ -82,120 +92,118 @@ box-shadow: ${shadowVal};`;
   } else if (mode === 'button') {
     rawCss = `background: linear-gradient(${btn.gradientAngle}deg, ${btn.colorStart}, ${btn.colorEnd});
 color: ${btn.textColor};
-border-radius: ${btn.borderRadius}px;
 padding: ${btn.paddingY}px ${btn.paddingX}px;
+border-radius: ${btn.borderRadius}px;
 font-size: ${btn.fontSize}px;
-border: none;
+border: 1px solid rgba(255, 255, 255, 0.15);
 cursor: pointer;
-transition: transform 0.2s ease;`;
-    tailwindCode = `bg-gradient-to-r from-[${btn.colorStart}] to-[${btn.colorEnd}] text-[${btn.textColor}] rounded-[${btn.borderRadius}px] px-6 py-2.5`;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);`;
+    tailwindCode = `bg-gradient-to-r from-[${btn.colorStart}] to-[${btn.colorEnd}] text-white px-[${btn.paddingX}px] py-[${btn.paddingY}px] rounded-[${btn.borderRadius}px] font-semibold transition-all hover:scale-105`;
     reactStyleCode = `style={{
   background: 'linear-gradient(${btn.gradientAngle}deg, ${btn.colorStart}, ${btn.colorEnd})',
   color: '${btn.textColor}',
+  padding: '${btn.paddingY}px ${btn.paddingX}px',
   borderRadius: '${btn.borderRadius}px'
 }}`;
   } else if (mode === 'text') {
-    rawCss = `background: linear-gradient(${textGrad.angle}deg, ${textGrad.colorStart}, ${textGrad.colorMiddle}, ${textGrad.colorEnd});
+    rawCss = `background-image: linear-gradient(${textGrad.angle}deg, ${textGrad.colorStart}, ${textGrad.colorMiddle}, ${textGrad.colorEnd});
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 font-size: ${textGrad.fontSize}px;
 font-weight: ${textGrad.fontWeight};`;
-    tailwindCode = `bg-gradient-to-r from-[${textGrad.colorStart}] via-[${textGrad.colorMiddle}] to-[${textGrad.colorEnd}] bg-clip-text text-transparent`;
+    tailwindCode = `bg-gradient-to-r from-[${textGrad.colorStart}] via-[${textGrad.colorMiddle}] to-[${textGrad.colorEnd}] bg-clip-text text-transparent text-[${textGrad.fontSize}px] font-black`;
     reactStyleCode = `style={{
-  background: 'linear-gradient(${textGrad.angle}deg, ${textGrad.colorStart}, ${textGrad.colorMiddle}, ${textGrad.colorEnd})',
+  backgroundImage: 'linear-gradient(${textGrad.angle}deg, ${textGrad.colorStart}, ${textGrad.colorMiddle}, ${textGrad.colorEnd})',
   WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent'
+  WebkitTextFillColor: 'transparent',
+  fontSize: '${textGrad.fontSize}px',
+  fontWeight: ${textGrad.fontWeight}
 }}`;
   }
 
-  const svgCode = buildSvgGradient(gradient);
-
-  // Active Code Payload
-  const getPayload = () => {
-    switch (activeFormat) {
-      case 'css':
-        return rawCss;
-      case 'tailwind':
-        return tailwindCode;
-      case 'react':
-        return reactStyleCode;
-      case 'svg':
-        return svgCode;
-    }
+  // Active code string
+  const activeCodeMap: Record<string, string> = {
+    css: rawCss,
+    tailwind: tailwindCode,
+    react: reactStyleCode,
+    svg: svgCode,
+    flutter: flutterCode,
+    android: androidCode,
   };
 
+  const activeSnippet = activeCodeMap[activeFormat] || rawCss;
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(getPayload()).then(() => {
+    navigator.clipboard.writeText(activeSnippet).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
 
   return (
-    <div className="space-y-3 rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-xl">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
         <div className="flex items-center gap-2">
-          <Code2 className="h-4 w-4 text-indigo-400" />
-          <h3 className="text-sm font-bold text-white">Export Production Code</h3>
+          <Code2 className="h-4 w-4 text-zinc-400" />
+          <div>
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+              Code Exporter
+            </h3>
+            <p className="text-[11px] text-zinc-400">
+              Production-ready syntax for Web, Mobile &amp; Vector.
+            </p>
+          </div>
         </div>
 
-        {/* Format Switcher */}
-        <div className="flex items-center rounded-lg border border-slate-800 bg-slate-950 p-0.5">
-          <button
-            type="button"
-            onClick={() => setActiveFormat('css')}
-            className={`rounded-md px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
-              activeFormat === 'css' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            CSS
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFormat('tailwind')}
-            className={`rounded-md px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
-              activeFormat === 'tailwind' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            Tailwind CSS
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFormat('react')}
-            className={`rounded-md px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
-              activeFormat === 'react' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            React Style
-          </button>
-          {mode === 'gradient' && (
+        {/* Format Selector Pills */}
+        <div className="flex items-center gap-1 overflow-x-auto scrollbar-none">
+          {[
+            { id: 'css', label: 'CSS' },
+            { id: 'tailwind', label: 'Tailwind' },
+            { id: 'react', label: 'React JSX' },
+            { id: 'svg', label: 'SVG' },
+            { id: 'flutter', label: 'Flutter' },
+            { id: 'android', label: 'Android' },
+          ].map((f) => (
             <button
+              key={f.id}
               type="button"
-              onClick={() => setActiveFormat('svg')}
-              className={`rounded-md px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
-                activeFormat === 'svg' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
+              onClick={() => setActiveFormat(f.id as any)}
+              className={`rounded-lg px-2.5 py-1 text-[11px] font-mono font-medium transition-all cursor-pointer ${
+                activeFormat === f.id
+                  ? 'bg-zinc-800 text-white font-semibold border border-white/10 shadow-xs'
+                  : 'text-zinc-500 hover:text-zinc-300'
               }`}
             >
-              SVG
+              {f.label}
             </button>
-          )}
+          ))}
         </div>
       </div>
 
-      {/* Code Display Area */}
-      <div className="relative">
+      {/* Code Snippet Box */}
+      <div className="relative rounded-xl border border-white/[0.06] bg-[#050608] p-4">
+        <pre className="font-mono text-xs leading-relaxed text-zinc-300 overflow-x-auto select-all max-h-48 scrollbar-none">
+          <code>{activeSnippet}</code>
+        </pre>
+
         <button
           type="button"
           onClick={handleCopy}
-          className="absolute top-2.5 right-2.5 flex items-center gap-1.5 rounded-md bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-200 transition-all hover:bg-slate-700 cursor-pointer shadow-sm"
+          className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg border border-white/10 bg-zinc-900/90 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-all hover:bg-zinc-800 hover:text-white cursor-pointer shadow-md"
         >
-          {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
-          <span>{copied ? 'Copied!' : 'Copy Code'}</span>
+          {copied ? (
+            <>
+              <Check className="h-3.5 w-3.5 text-emerald-400" />
+              <span className="text-emerald-400 font-semibold">Copied!</span>
+            </>
+          ) : (
+            <>
+              <Copy className="h-3.5 w-3.5 text-zinc-400" />
+              <span>Copy Code</span>
+            </>
+          )}
         </button>
-
-        <pre className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950 p-4 text-xs font-mono leading-relaxed text-emerald-400/95 select-all">
-          <code>{getPayload()}</code>
-        </pre>
       </div>
     </div>
   );

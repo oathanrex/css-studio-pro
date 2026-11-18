@@ -8,18 +8,22 @@ interface ShadowControlsProps {
 }
 
 export function ShadowControls({ shadows, onChange }: ShadowControlsProps) {
-  const handleAddShadow = () => {
+  const handleAddLayer = () => {
     if (shadows.length >= 5) return;
-    const newShadow: ShadowLayer = {
+    const newLayer: ShadowLayer = {
       id: String(Date.now()),
       x: 0,
-      y: 10,
-      blur: 25,
-      spread: -5,
-      color: 'rgba(0, 0, 0, 0.3)',
+      y: 12,
+      blur: 24,
+      spread: -4,
+      color: 'rgba(0, 0, 0, 0.4)',
       inset: false,
     };
-    onChange([...shadows, newShadow]);
+    onChange([...shadows, newLayer]);
+  };
+
+  const handleUpdate = (id: string, partial: Partial<ShadowLayer>) => {
+    onChange(shadows.map((s) => (s.id === id ? { ...s, ...partial } : s)));
   };
 
   const handleDelete = (id: string) => {
@@ -27,54 +31,57 @@ export function ShadowControls({ shadows, onChange }: ShadowControlsProps) {
     onChange(shadows.filter((s) => s.id !== id));
   };
 
-  const handleUpdate = (id: string, updates: Partial<ShadowLayer>) => {
-    onChange(shadows.map((s) => (s.id === id ? { ...s, ...updates } : s)));
-  };
-
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-xl">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
+      <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
         <div>
-          <h3 className="text-sm font-bold text-white">Box Shadow &amp; Glow Studio</h3>
-          <p className="text-xs text-slate-400">
-            Stack multiple realistic shadow layers for realistic 3D elevation.
+          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+            Box Shadow Physics
+          </h3>
+          <p className="text-[11px] text-zinc-400">
+            Composite multi-layer realistic depth and atmospheric ambient glow.
           </p>
         </div>
         {shadows.length < 5 && (
           <button
             type="button"
-            onClick={handleAddShadow}
-            className="flex items-center gap-1 rounded-md bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-200 transition-all hover:bg-slate-700 cursor-pointer shadow-xs"
+            onClick={handleAddLayer}
+            className="flex items-center gap-1 rounded-md border border-white/10 bg-zinc-900 px-2 py-1 text-[11px] font-medium text-zinc-200 transition-all hover:bg-zinc-800 cursor-pointer shadow-xs"
           >
-            <Plus className="h-3 w-3 text-emerald-400" />
+            <Plus className="h-3 w-3" />
             <span>Add Layer</span>
           </button>
         )}
       </div>
 
       <div className="space-y-3">
-        {shadows.map((sh, idx) => (
+        {shadows.map((layer, idx) => (
           <div
-            key={sh.id}
-            className="space-y-3 rounded-xl border border-slate-800 bg-slate-950/40 p-3.5 text-xs"
+            key={layer.id}
+            className="space-y-3 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 transition-all hover:border-white/10"
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-slate-300">Layer #{idx + 1}</span>
-              <div className="flex items-center gap-3">
-                <label className="flex items-center gap-1 text-slate-400 cursor-pointer">
+              <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+                Layer #{idx + 1}
+              </span>
+
+              <div className="flex items-center gap-2">
+                <label className="flex items-center gap-1 text-[10px] font-mono text-zinc-400 cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={sh.inset}
-                    onChange={(e) => handleUpdate(sh.id, { inset: e.target.checked })}
-                    className="rounded border-slate-700 text-indigo-500"
+                    checked={layer.inset}
+                    onChange={(e) => handleUpdate(layer.id, { inset: e.target.checked })}
+                    className="rounded border-zinc-700 bg-zinc-900 accent-zinc-200 cursor-pointer"
                   />
                   <span>Inset</span>
                 </label>
+
                 {shadows.length > 1 && (
                   <button
                     type="button"
-                    onClick={() => handleDelete(sh.id)}
-                    className="text-slate-500 hover:text-rose-400 cursor-pointer"
+                    onClick={() => handleDelete(layer.id)}
+                    className="text-zinc-600 hover:text-rose-400 transition-colors cursor-pointer"
+                    title="Remove Layer"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -82,54 +89,35 @@ export function ShadowControls({ shadows, onChange }: ShadowControlsProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <span className="text-slate-400">X Offset: {sh.x}px</span>
+            {/* Sliders Grid */}
+            <div className="grid grid-cols-2 gap-3 text-[10px] font-mono text-zinc-400">
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span>Offset Y</span>
+                  <span className="text-zinc-200">{layer.y}px</span>
+                </div>
                 <input
                   type="range"
-                  min={-50}
-                  max={50}
-                  value={sh.x}
-                  onChange={(e) => handleUpdate(sh.id, { x: Number(e.target.value) })}
-                  className="w-full accent-indigo-500 cursor-pointer"
+                  min={-40}
+                  max={60}
+                  value={layer.y}
+                  onChange={(e) => handleUpdate(layer.id, { y: Number(e.target.value) })}
+                  className="w-full cursor-pointer"
                 />
               </div>
 
-              <div>
-                <span className="text-slate-400">Y Offset: {sh.y}px</span>
-                <input
-                  type="range"
-                  min={-50}
-                  max={50}
-                  value={sh.y}
-                  onChange={(e) => handleUpdate(sh.id, { y: Number(e.target.value) })}
-                  className="w-full accent-indigo-500 cursor-pointer"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <span className="text-slate-400">Blur: {sh.blur}px</span>
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span>Blur Radius</span>
+                  <span className="text-zinc-200">{layer.blur}px</span>
+                </div>
                 <input
                   type="range"
                   min={0}
-                  max={100}
-                  value={sh.blur}
-                  onChange={(e) => handleUpdate(sh.id, { blur: Number(e.target.value) })}
-                  className="w-full accent-indigo-500 cursor-pointer"
-                />
-              </div>
-
-              <div>
-                <span className="text-slate-400">Spread: {sh.spread}px</span>
-                <input
-                  type="range"
-                  min={-30}
-                  max={50}
-                  value={sh.spread}
-                  onChange={(e) => handleUpdate(sh.id, { spread: Number(e.target.value) })}
-                  className="w-full accent-indigo-500 cursor-pointer"
+                  max={80}
+                  value={layer.blur}
+                  onChange={(e) => handleUpdate(layer.id, { blur: Number(e.target.value) })}
+                  className="w-full cursor-pointer"
                 />
               </div>
             </div>

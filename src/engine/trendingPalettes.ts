@@ -1,157 +1,220 @@
 import type { PalettePreset } from '../types';
 
 export const TRENDING_PALETTES: PalettePreset[] = [
+  // Titanium & Obsidian (Architectural Minimalist)
   {
-    name: 'Cyberpunk Neon',
-    category: 'neon',
+    name: 'Liquid Titanium',
+    category: 'titanium',
     angle: 135,
-    gradient: 'linear-gradient(135deg, #f72585 0%, #7209b7 50%, #4361ee 100%)',
+    gradient: 'linear-gradient(135deg, #090a0f 0%, #1a202c 40%, #334155 75%, #94a3b8 100%)',
     stops: [
-      { id: '1', color: '#f72585', position: 0 },
-      { id: '2', color: '#7209b7', position: 50 },
-      { id: '3', color: '#4361ee', position: 100 },
+      { id: '1', color: '#090a0f', position: 0 },
+      { id: '2', color: '#1a202c', position: 40 },
+      { id: '3', color: '#334155', position: 75 },
+      { id: '4', color: '#94a3b8', position: 100 },
     ],
   },
   {
-    name: 'Sunset Mirage',
-    category: 'sunset',
-    angle: 90,
-    gradient: 'linear-gradient(90deg, #ff0844 0%, #ffb199 100%)',
-    stops: [
-      { id: '1', color: '#ff0844', position: 0 },
-      { id: '2', color: '#ffb199', position: 100 },
-    ],
-  },
-  {
-    name: 'Oceanic Horizon',
-    category: 'ocean',
-    angle: 180,
-    gradient: 'linear-gradient(180deg, #2af598 0%, #009efd 100%)',
-    stops: [
-      { id: '1', color: '#2af598', position: 0 },
-      { id: '2', color: '#009efd', position: 100 },
-    ],
-  },
-  {
-    name: 'Emerald Aurora',
-    category: 'nature',
-    angle: 135,
-    gradient: 'linear-gradient(135deg, #0ba360 0%, #3cba92 100%)',
-    stops: [
-      { id: '1', color: '#0ba360', position: 0 },
-      { id: '2', color: '#3cba92', position: 100 },
-    ],
-  },
-  {
-    name: 'Royal Amethyst',
-    category: 'luxury',
-    angle: 120,
-    gradient: 'linear-gradient(120deg, #6a11cb 0%, #2575fc 100%)',
-    stops: [
-      { id: '1', color: '#6a11cb', position: 0 },
-      { id: '2', color: '#2575fc', position: 100 },
-    ],
-  },
-  {
-    name: 'Vaporwave Dream',
-    category: 'pastel',
-    angle: 90,
-    gradient: 'linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)',
-    stops: [
-      { id: '1', color: '#ff9a9e', position: 0 },
-      { id: '2', color: '#fecfef', position: 100 },
-    ],
-  },
-  {
-    name: 'Obsidian Velvet',
-    category: 'dark',
+    name: 'Monolith Carbon',
+    category: 'titanium',
     angle: 160,
-    gradient: 'linear-gradient(160deg, #090d16 0%, #1e1b4b 50%, #0f172a 100%)',
+    gradient: 'linear-gradient(160deg, #050505 0%, #141416 45%, #26262b 80%, #3f3f46 100%)',
     stops: [
-      { id: '1', color: '#090d16', position: 0 },
-      { id: '2', color: '#1e1b4b', position: 50 },
+      { id: '1', color: '#050505', position: 0 },
+      { id: '2', color: '#141416', position: 45 },
+      { id: '3', color: '#26262b', position: 80 },
+      { id: '4', color: '#3f3f46', position: 100 },
+    ],
+  },
+  {
+    name: 'Silicon Stealth',
+    category: 'titanium',
+    angle: 90,
+    gradient: 'linear-gradient(90deg, #0b0f19 0%, #1e293b 50%, #0f172a 100%)',
+    stops: [
+      { id: '1', color: '#0b0f19', position: 0 },
+      { id: '2', color: '#1e293b', position: 50 },
       { id: '3', color: '#0f172a', position: 100 },
     ],
   },
   {
-    name: 'Solar Flare',
-    category: 'sunset',
-    angle: 45,
-    gradient: 'linear-gradient(45deg, #ff416c 0%, #ff4b2b 100%)',
-    stops: [
-      { id: '1', color: '#ff416c', position: 0 },
-      { id: '2', color: '#ff4b2b', position: 100 },
-    ],
-  },
-  {
-    name: 'Bioluminescent Abyss',
-    category: 'ocean',
+    name: 'Silver Nitrate',
+    category: 'titanium',
     angle: 135,
-    gradient: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)',
+    gradient: 'linear-gradient(135deg, #0f172a 0%, #475569 50%, #cbd5e1 100%)',
     stops: [
-      { id: '1', color: '#00f2fe', position: 0 },
-      { id: '2', color: '#4facfe', position: 100 },
+      { id: '1', color: '#0f172a', position: 0 },
+      { id: '2', color: '#475569', position: 50 },
+      { id: '3', color: '#cbd5e1', position: 100 },
+    ],
+  },
+
+  // Luxury Metals & Warm Gold
+  {
+    name: 'Imperial Champagne',
+    category: 'metals',
+    angle: 135,
+    gradient: 'linear-gradient(135deg, #18140f 0%, #452e15 45%, #a16207 80%, #fef08a 100%)',
+    stops: [
+      { id: '1', color: '#18140f', position: 0 },
+      { id: '2', color: '#452e15', position: 45 },
+      { id: '3', color: '#a16207', position: 80 },
+      { id: '4', color: '#fef08a', position: 100 },
     ],
   },
   {
-    name: 'Golden Hour Luxury',
-    category: 'luxury',
-    angle: 90,
-    gradient: 'linear-gradient(90deg, #f6d365 0%, #fda085 100%)',
-    stops: [
-      { id: '1', color: '#f6d365', position: 0 },
-      { id: '2', color: '#fda085', position: 100 },
-    ],
-  },
-  {
-    name: 'Deep Forest Moss',
-    category: 'nature',
-    angle: 180,
-    gradient: 'linear-gradient(180deg, #134e5e 0%, #71b280 100%)',
-    stops: [
-      { id: '1', color: '#134e5e', position: 0 },
-      { id: '2', color: '#71b280', position: 100 },
-    ],
-  },
-  {
-    name: 'Hyper Purple Burst',
-    category: 'neon',
+    name: 'Rose Gold Alloy',
+    category: 'metals',
     angle: 120,
-    gradient: 'linear-gradient(120deg, #a18cd1 0%, #fbc2eb 100%)',
+    gradient: 'linear-gradient(120deg, #1a1014 0%, #4a212e 45%, #9f495e 80%, #fbcfe8 100%)',
     stops: [
-      { id: '1', color: '#a18cd1', position: 0 },
-      { id: '2', color: '#fbc2eb', position: 100 },
+      { id: '1', color: '#1a1014', position: 0 },
+      { id: '2', color: '#4a212e', position: 45 },
+      { id: '3', color: '#9f495e', position: 80 },
+      { id: '4', color: '#fbcfe8', position: 100 },
     ],
   },
   {
-    name: 'Midnight Nebula',
-    category: 'dark',
+    name: 'Smoked Bronze',
+    category: 'metals',
+    angle: 180,
+    gradient: 'linear-gradient(180deg, #1c140d 0%, #59351a 50%, #ca8a04 100%)',
+    stops: [
+      { id: '1', color: '#1c140d', position: 0 },
+      { id: '2', color: '#59351a', position: 50 },
+      { id: '3', color: '#ca8a04', position: 100 },
+    ],
+  },
+
+  // Nordic Aurora & Emerald
+  {
+    name: 'Boreal Emerald',
+    category: 'aurora',
     angle: 135,
-    gradient: 'linear-gradient(135deg, #1e0538 0%, #3a0ca3 50%, #4cc9f0 100%)',
+    gradient: 'linear-gradient(135deg, #021a14 0%, #064e3b 45%, #0d9488 80%, #5eead4 100%)',
     stops: [
-      { id: '1', color: '#1e0538', position: 0 },
-      { id: '2', color: '#3a0ca3', position: 50 },
-      { id: '3', color: '#4cc9f0', position: 100 },
+      { id: '1', color: '#021a14', position: 0 },
+      { id: '2', color: '#064e3b', position: 45 },
+      { id: '3', color: '#0d9488', position: 80 },
+      { id: '4', color: '#5eead4', position: 100 },
     ],
   },
   {
-    name: 'Peachy Keen',
-    category: 'pastel',
-    angle: 45,
-    gradient: 'linear-gradient(45deg, #fbc2eb 0%, #a6c1ee 100%)',
+    name: 'Arctic Iceberg',
+    category: 'aurora',
+    angle: 180,
+    gradient: 'linear-gradient(180deg, #03121e 0%, #0c4a6e 50%, #38bdf8 100%)',
     stops: [
-      { id: '1', color: '#fbc2eb', position: 0 },
-      { id: '2', color: '#a6c1ee', position: 100 },
+      { id: '1', color: '#03121e', position: 0 },
+      { id: '2', color: '#0c4a6e', position: 50 },
+      { id: '3', color: '#38bdf8', position: 100 },
     ],
   },
   {
-    name: 'Electric Lime',
-    category: 'neon',
+    name: 'Highland Pine',
+    category: 'aurora',
+    angle: 135,
+    gradient: 'linear-gradient(135deg, #061911 0%, #14532d 50%, #4ade80 100%)',
+    stops: [
+      { id: '1', color: '#061911', position: 0 },
+      { id: '2', color: '#14532d', position: 50 },
+      { id: '3', color: '#4ade80', position: 100 },
+    ],
+  },
+
+  // Tokyo Twilight & Deep Violet
+  {
+    name: 'Tokyo Midnight',
+    category: 'twilight',
+    angle: 140,
+    gradient: 'linear-gradient(140deg, #0b0716 0%, #2e1065 45%, #6b21a8 80%, #c084fc 100%)',
+    stops: [
+      { id: '1', color: '#0b0716', position: 0 },
+      { id: '2', color: '#2e1065', position: 45 },
+      { id: '3', color: '#6b21a8', position: 80 },
+      { id: '4', color: '#c084fc', position: 100 },
+    ],
+  },
+  {
+    name: 'Kyoto Dusk',
+    category: 'twilight',
     angle: 90,
-    gradient: 'linear-gradient(90deg, #11998e 0%, #38ef7d 100%)',
+    gradient: 'linear-gradient(90deg, #1c0e24 0%, #581c87 50%, #c026d3 100%)',
     stops: [
-      { id: '1', color: '#11998e', position: 0 },
-      { id: '2', color: '#38ef7d', position: 100 },
+      { id: '1', color: '#1c0e24', position: 0 },
+      { id: '2', color: '#581c87', position: 50 },
+      { id: '3', color: '#c026d3', position: 100 },
+    ],
+  },
+  {
+    name: 'Solaris Ember',
+    category: 'twilight',
+    angle: 135,
+    gradient: 'linear-gradient(135deg, #180808 0%, #7f1d1d 45%, #ea580c 80%, #fed7aa 100%)',
+    stops: [
+      { id: '1', color: '#180808', position: 0 },
+      { id: '2', color: '#7f1d1d', position: 45 },
+      { id: '3', color: '#ea580c', position: 80 },
+      { id: '4', color: '#fed7aa', position: 100 },
+    ],
+  },
+
+  // Deep Space & Quantum
+  {
+    name: 'Quantum Void',
+    category: 'space',
+    angle: 160,
+    gradient: 'linear-gradient(160deg, #020617 0%, #1e1b4b 50%, #312e81 100%)',
+    stops: [
+      { id: '1', color: '#020617', position: 0 },
+      { id: '2', color: '#1e1b4b', position: 50 },
+      { id: '3', color: '#312e81', position: 100 },
+    ],
+  },
+  {
+    name: 'Cosmic Sapphire',
+    category: 'space',
+    angle: 135,
+    gradient: 'linear-gradient(135deg, #030d22 0%, #1d4ed8 50%, #60a5fa 100%)',
+    stops: [
+      { id: '1', color: '#030d22', position: 0 },
+      { id: '2', color: '#1d4ed8', position: 50 },
+      { id: '3', color: '#60a5fa', position: 100 },
+    ],
+  },
+  {
+    name: 'Interstellar Nebula',
+    category: 'space',
+    angle: 120,
+    gradient: 'linear-gradient(120deg, #0d081e 0%, #3730a3 50%, #06b6d4 100%)',
+    stops: [
+      { id: '1', color: '#0d081e', position: 0 },
+      { id: '2', color: '#3730a3', position: 50 },
+      { id: '3', color: '#06b6d4', position: 100 },
+    ],
+  },
+
+  // Minimalist Silk & Editorial
+  {
+    name: 'Desert Dune',
+    category: 'minimal',
+    angle: 90,
+    gradient: 'linear-gradient(90deg, #1c1917 0%, #44403c 50%, #d6d3d1 100%)',
+    stops: [
+      { id: '1', color: '#1c1917', position: 0 },
+      { id: '2', color: '#44403c', position: 50 },
+      { id: '3', color: '#d6d3d1', position: 100 },
+    ],
+  },
+  {
+    name: 'Alabaster Frost',
+    category: 'minimal',
+    angle: 135,
+    gradient: 'linear-gradient(135deg, #111827 0%, #374151 50%, #f3f4f6 100%)',
+    stops: [
+      { id: '1', color: '#111827', position: 0 },
+      { id: '2', color: '#374151', position: 50 },
+      { id: '3', color: '#f3f4f6', position: 100 },
     ],
   },
 ];

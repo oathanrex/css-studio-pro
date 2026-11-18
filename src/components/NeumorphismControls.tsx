@@ -8,80 +8,86 @@ interface NeumorphismControlsProps {
 
 export function NeumorphismControls({ state, onChange }: NeumorphismControlsProps) {
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-xl">
-      <div className="border-b border-slate-800 pb-3">
-        <h3 className="text-sm font-bold text-white">Neumorphism (Soft UI) Studio</h3>
-        <p className="text-xs text-slate-400">
-          Tactile embossed &amp; debossed soft UI shadow mechanics.
+    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
+      <div className="border-b border-white/[0.08] pb-3">
+        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+          Neumorphism Tactile Studio
+        </h3>
+        <p className="text-[11px] text-zinc-400">
+          Soft UI extruded and debossed tactile surfaces.
         </p>
       </div>
 
-      <div className="space-y-4">
-        {/* Shape */}
-        <div className="space-y-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
-            Surface Shape
+      <div className="space-y-3.5 text-xs">
+        {/* Surface Shape */}
+        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+            Surface Curvature
           </label>
-          <div className="grid grid-cols-2 gap-2">
-            {(['flat', 'concave', 'convex', 'pressed'] as const).map((s) => (
+          <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+            {(['flat', 'concave', 'convex', 'pressed'] as const).map((shape) => (
               <button
-                key={s}
+                key={shape}
                 type="button"
-                onClick={() => onChange({ ...state, shape: s })}
-                className={`rounded-lg border px-3 py-2 text-xs font-semibold capitalize transition-all cursor-pointer ${
-                  state.shape === s
-                    ? 'border-indigo-500 bg-indigo-500/20 text-indigo-300'
-                    : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white'
+                onClick={() => onChange({ ...state, shape })}
+                className={`rounded-lg border px-2 py-1.5 text-center font-mono text-[11px] capitalize transition-all cursor-pointer ${
+                  state.shape === shape
+                    ? 'border-white/20 bg-zinc-800 text-white font-semibold shadow-xs'
+                    : 'border-white/[0.06] bg-zinc-950/60 text-zinc-400 hover:text-white'
                 }`}
               >
-                {s}
+                {shape}
               </button>
             ))}
           </div>
         </div>
 
+        {/* Distance Slider */}
+        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+            <span>Light Distance</span>
+            <span className="text-zinc-200">{state.distance}px</span>
+          </div>
+          <input
+            type="range"
+            min={5}
+            max={40}
+            value={state.distance}
+            onChange={(e) => onChange({ ...state, distance: Number(e.target.value) })}
+            className="w-full cursor-pointer"
+          />
+        </div>
+
+        {/* Blur Slider */}
+        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
+          <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+            <span>Shadow Softness</span>
+            <span className="text-zinc-200">{state.blur}px</span>
+          </div>
+          <input
+            type="range"
+            min={10}
+            max={60}
+            value={state.blur}
+            onChange={(e) => onChange({ ...state, blur: Number(e.target.value) })}
+            className="w-full cursor-pointer"
+          />
+        </div>
+
         {/* Base Color */}
-        <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950/40 p-3.5 text-xs">
-          <span className="font-bold text-slate-300">Base Surface Color</span>
+        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+            Base Canvas Surface Color
+          </label>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-slate-400">{state.baseColor}</span>
             <input
               type="color"
               value={state.baseColor}
               onChange={(e) => onChange({ ...state, baseColor: e.target.value })}
-              className="h-7 w-7 rounded cursor-pointer border-0 bg-transparent"
+              className="h-7 w-7 rounded cursor-pointer border-0 bg-transparent p-0"
             />
+            <span className="font-mono text-zinc-300 text-xs">{state.baseColor}</span>
           </div>
-        </div>
-
-        {/* Distance */}
-        <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3.5 space-y-2">
-          <div className="flex justify-between text-xs">
-            <span className="font-bold text-slate-300">Light Distance: {state.distance}px</span>
-          </div>
-          <input
-            type="range"
-            min={5}
-            max={50}
-            value={state.distance}
-            onChange={(e) => onChange({ ...state, distance: Number(e.target.value) })}
-            className="w-full accent-indigo-500 cursor-pointer"
-          />
-        </div>
-
-        {/* Blur */}
-        <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3.5 space-y-2">
-          <div className="flex justify-between text-xs">
-            <span className="font-bold text-slate-300">Shadow Softness Blur: {state.blur}px</span>
-          </div>
-          <input
-            type="range"
-            min={5}
-            max={60}
-            value={state.blur}
-            onChange={(e) => onChange({ ...state, blur: Number(e.target.value) })}
-            className="w-full accent-indigo-500 cursor-pointer"
-          />
         </div>
       </div>
     </div>

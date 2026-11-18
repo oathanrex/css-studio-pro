@@ -8,83 +8,103 @@ interface TextGradientControlsProps {
 
 export function TextGradientControls({ state, onChange }: TextGradientControlsProps) {
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-xl">
-      <div className="border-b border-slate-800 pb-3">
-        <h3 className="text-sm font-bold text-white">Text Gradient Studio</h3>
-        <p className="text-xs text-slate-400">
-          CSS background-clip: text gradients with 3D text shadows.
+    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
+      <div className="border-b border-white/[0.08] pb-3">
+        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+          Typography Gradient Studio
+        </h3>
+        <p className="text-[11px] text-zinc-400">
+          Background-clip text typography gradients with optical depth.
         </p>
       </div>
 
-      <div className="space-y-4 text-xs">
-        {/* Sample Text */}
-        <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3.5 space-y-1.5">
-          <label className="font-bold text-slate-300">Display Text</label>
+      <div className="space-y-3.5 text-xs">
+        {/* Sample Headline Text */}
+        <div className="rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5 space-y-1.5">
+          <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+            Headline Text
+          </label>
           <input
             type="text"
             value={state.text}
             onChange={(e) => onChange({ ...state, text: e.target.value })}
-            className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs text-white"
+            className="w-full rounded-lg border border-white/10 bg-zinc-950 px-3 py-1.5 text-xs text-white font-medium"
           />
         </div>
 
-        {/* Colors */}
-        <div className="grid grid-cols-3 gap-2 rounded-xl border border-slate-800 bg-slate-950/40 p-3.5">
+        {/* 3-Stop Color Palette */}
+        <div className="grid grid-cols-3 gap-2 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5">
           <div>
-            <span className="font-bold text-slate-300">Start</span>
-            <input
-              type="color"
-              value={state.colorStart}
-              onChange={(e) => onChange({ ...state, colorStart: e.target.value })}
-              className="mt-1 h-7 w-7 rounded cursor-pointer border-0 bg-transparent"
-            />
+            <span className="text-[9px] font-mono text-zinc-400 uppercase">Start</span>
+            <div className="mt-1 flex items-center gap-1.5">
+              <input
+                type="color"
+                value={state.colorStart}
+                onChange={(e) => onChange({ ...state, colorStart: e.target.value })}
+                className="h-6 w-6 rounded cursor-pointer border-0 bg-transparent p-0"
+              />
+              <span className="font-mono text-[10px] text-zinc-300">{state.colorStart}</span>
+            </div>
           </div>
 
           <div>
-            <span className="font-bold text-slate-300">Middle</span>
-            <input
-              type="color"
-              value={state.colorMiddle}
-              onChange={(e) => onChange({ ...state, colorMiddle: e.target.value })}
-              className="mt-1 h-7 w-7 rounded cursor-pointer border-0 bg-transparent"
-            />
+            <span className="text-[9px] font-mono text-zinc-400 uppercase">Mid</span>
+            <div className="mt-1 flex items-center gap-1.5">
+              <input
+                type="color"
+                value={state.colorMiddle}
+                onChange={(e) => onChange({ ...state, colorMiddle: e.target.value })}
+                className="h-6 w-6 rounded cursor-pointer border-0 bg-transparent p-0"
+              />
+              <span className="font-mono text-[10px] text-zinc-300">{state.colorMiddle}</span>
+            </div>
           </div>
 
           <div>
-            <span className="font-bold text-slate-300">End</span>
-            <input
-              type="color"
-              value={state.colorEnd}
-              onChange={(e) => onChange({ ...state, colorEnd: e.target.value })}
-              className="mt-1 h-7 w-7 rounded cursor-pointer border-0 bg-transparent"
-            />
+            <span className="text-[9px] font-mono text-zinc-400 uppercase">End</span>
+            <div className="mt-1 flex items-center gap-1.5">
+              <input
+                type="color"
+                value={state.colorEnd}
+                onChange={(e) => onChange({ ...state, colorEnd: e.target.value })}
+                className="h-6 w-6 rounded cursor-pointer border-0 bg-transparent p-0"
+              />
+              <span className="font-mono text-[10px] text-zinc-300">{state.colorEnd}</span>
+            </div>
           </div>
         </div>
 
-        {/* Font Size */}
-        <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3.5 space-y-2">
-          <div className="flex justify-between">
-            <span className="font-bold text-slate-300">Font Size: {state.fontSize}px</span>
+        {/* Font Size & Weight */}
+        <div className="grid grid-cols-2 gap-3 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-3.5">
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+              <span>Font Size</span>
+              <span className="text-zinc-200">{state.fontSize}px</span>
+            </div>
+            <input
+              type="range"
+              min={24}
+              max={72}
+              value={state.fontSize}
+              onChange={(e) => onChange({ ...state, fontSize: Number(e.target.value) })}
+              className="w-full cursor-pointer"
+            />
           </div>
-          <input
-            type="range"
-            min={24}
-            max={72}
-            value={state.fontSize}
-            onChange={(e) => onChange({ ...state, fontSize: Number(e.target.value) })}
-            className="w-full accent-indigo-500 cursor-pointer"
-          />
-        </div>
 
-        {/* Text Shadow Toggle */}
-        <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950/40 p-3.5">
-          <span className="font-bold text-slate-300">Drop Shadow Ambient Glow</span>
-          <input
-            type="checkbox"
-            checked={state.hasShadow}
-            onChange={(e) => onChange({ ...state, hasShadow: e.target.checked })}
-            className="rounded border-slate-700 text-indigo-500 cursor-pointer"
-          />
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-[10px] font-mono text-zinc-400">
+              <span>Angle</span>
+              <span className="text-zinc-200">{state.angle}°</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={360}
+              value={state.angle}
+              onChange={(e) => onChange({ ...state, angle: Number(e.target.value) })}
+              className="w-full cursor-pointer"
+            />
+          </div>
         </div>
       </div>
     </div>

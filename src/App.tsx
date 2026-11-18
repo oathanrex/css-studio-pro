@@ -29,69 +29,71 @@ export default function App() {
   const [activeMode, setActiveMode] = useState<ToolMode>('gradient');
   const [copied, setCopied] = useState(false);
 
-  // Gradient State
+  // Top 1% Architectural Signature Gradient (Liquid Titanium & Obsidian)
   const [gradient, setGradient] = useState<GradientState>({
     type: 'linear',
     angle: 135,
     radialShape: 'circle',
     radialPosition: 'center',
+    colorSpace: 'oklch',
     stops: [
-      { id: '1', color: '#f72585', position: 0 },
-      { id: '2', color: '#7209b7', position: 50 },
-      { id: '3', color: '#4361ee', position: 100 },
+      { id: '1', color: '#090a0f', position: 0 },
+      { id: '2', color: '#1a202c', position: 40 },
+      { id: '3', color: '#334155', position: 75 },
+      { id: '4', color: '#94a3b8', position: 100 },
     ],
   });
 
-  // Glassmorphism State
+  // Glassmorphism Optics State
   const [glass, setGlass] = useState<GlassmorphismState>({
-    blur: 16,
-    opacity: 18,
+    blur: 20,
+    opacity: 12,
     color: '#ffffff',
-    borderColor: 'rgba(255, 255, 255, 0.25)',
+    borderColor: 'rgba(255, 255, 255, 0.15)',
     borderWidth: 1,
     borderRadius: 16,
     hasShadow: true,
   });
 
-  // Neumorphism State
+  // Neumorphism Tactile State
   const [neu, setNeu] = useState<NeumorphismState>({
     shape: 'flat',
     size: 200,
     radius: 32,
     distance: 14,
     blur: 28,
-    baseColor: '#0f172a',
+    baseColor: '#0b0c10',
   });
 
-  // Box Shadow State
+  // Multi-Layer Shadow Physics State
   const [shadows, setShadows] = useState<ShadowLayer[]>([
-    { id: '1', x: 0, y: 10, blur: 25, spread: -5, color: 'rgba(0, 0, 0, 0.4)', inset: false },
-    { id: '2', x: 0, y: 8, blur: 10, spread: -6, color: 'rgba(0, 0, 0, 0.2)', inset: false },
+    { id: '1', x: 0, y: 16, blur: 32, spread: -8, color: 'rgba(0, 0, 0, 0.6)', inset: false },
+    { id: '2', x: 0, y: 4, blur: 8, spread: -2, color: 'rgba(0, 0, 0, 0.4)', inset: false },
   ]);
 
-  // Button State
+  // Executive CTA Button State
   const [btn, setBtn] = useState<ButtonState>({
-    text: 'Explore Universe 🚀',
-    gradientAngle: 90,
-    colorStart: '#4f46e5',
-    colorEnd: '#06b6d4',
+    text: 'Deploy to Production →',
+    gradientAngle: 135,
+    colorStart: '#18181b',
+    colorEnd: '#27272a',
     textColor: '#ffffff',
-    borderRadius: 12,
-    paddingY: 14,
-    paddingX: 32,
-    fontSize: 15,
+    borderRadius: 10,
+    paddingY: 13,
+    paddingX: 28,
+    fontSize: 14,
     hoverEffect: 'shine',
   });
 
-  // Text Gradient State
+  // Architectural Typography State
   const [textGrad, setTextGrad] = useState<TextGradientState>({
-    text: 'Craft The Future With Pure CSS',
-    angle: 90,
-    colorStart: '#ec4899',
-    colorMiddle: '#8b5cf6',
-    colorEnd: '#3b82f6',
-    fontSize: 48,
-    fontWeight: 900,
+    text: 'CRAFT WITH ARCHITECTURAL PRECISION',
+    angle: 135,
+    colorStart: '#ffffff',
+    colorMiddle: '#cbd5e1',
+    colorEnd: '#64748b',
+    fontSize: 40,
+    fontWeight: 800,
     hasShadow: true,
   });
 
@@ -121,7 +123,7 @@ export default function App() {
   };
 
   const handleDownloadPng = () => {
-    exportGradientToPng(gradient, 1920, 1080);
+    exportGradientToPng(gradient, 3840, 2160);
   };
 
   const handleSelectPalette = (preset: PalettePreset) => {
@@ -130,6 +132,7 @@ export default function App() {
       angle: preset.angle,
       radialShape: 'circle',
       radialPosition: 'center',
+      colorSpace: 'oklch',
       stops: preset.stops,
     });
     setActiveMode('gradient');
@@ -137,7 +140,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-950 text-slate-100">
+    <div className="flex min-h-screen flex-col bg-[#08090d] text-zinc-100">
       <Navbar
         activeMode={activeMode}
         onSelectMode={setActiveMode}
@@ -210,12 +213,12 @@ export default function App() {
           </div>
         </div>
 
-        {/* Palettes Gallery Section (When not on palettes tab) */}
+        {/* Curated Gallery Section (When not already on palettes tab) */}
         {activeMode !== 'palettes' && (
           <TrendingPalettesGrid onSelectPalette={handleSelectPalette} />
         )}
 
-        {/* SEO Technical Guide & Documentation */}
+        {/* Technical Architectural Knowledge Base */}
         <SeoEducationalContent />
 
         {/* FAQ Accordion Section */}

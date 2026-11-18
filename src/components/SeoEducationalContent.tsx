@@ -11,80 +11,79 @@ import React from 'react';
 
 export function SeoEducationalContent() {
   return (
-    <section className="space-y-8 rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-8 shadow-xl text-slate-300">
+    <section className="space-y-8 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-6 sm:p-8 shadow-xl text-zinc-300">
       {/* Section Header */}
-      <div className="border-b border-slate-800 pb-5">
-        <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
-          <BookOpen className="h-4 w-4" />
-          <span>Technical Architecture &amp; Developer Guide</span>
+      <div className="border-b border-white/[0.08] pb-5">
+        <div className="flex items-center gap-2 text-zinc-400 font-mono text-xs uppercase tracking-wider font-semibold">
+          <BookOpen className="h-4 w-4 text-zinc-400" />
+          <span>Architectural Engineering Guide</span>
         </div>
-        <h2 className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
-          Mastering Modern CSS Gradients, Glassmorphism &amp; Shadows
+        <h2 className="mt-2 text-xl font-bold text-white sm:text-2xl tracking-tight">
+          Modern CSS Gradients, OKLCH Interpolation &amp; Sub-Pixel Optics
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-slate-400 max-w-3xl">
-          Everything you need to know about mathematical color transitions, hardware-accelerated
+        <p className="mt-2 text-xs leading-relaxed text-zinc-400 max-w-3xl">
+          Complete guide to mathematical color transitions, CSS Color Module Level 4, hardware-accelerated
           compositing, and zero-CLS web performance.
         </p>
       </div>
 
       {/* Grid of Knowledge Cards */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Card 1: Linear Gradients */}
-        <div className="space-y-3 rounded-xl border border-slate-800 bg-slate-950/50 p-5">
-          <div className="flex items-center gap-2 text-indigo-400">
-            <Palette className="h-5 w-5" />
-            <h3 className="text-base font-bold text-white">The Anatomy of CSS Linear Gradients</h3>
+        {/* Card 1: Linear Gradients & OKLCH */}
+        <div className="space-y-3 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-5">
+          <div className="flex items-center gap-2 text-zinc-200">
+            <Palette className="h-4 w-4 text-zinc-400" />
+            <h3 className="text-sm font-bold text-white">Linear Gradients &amp; Modern OKLCH Interpolation</h3>
           </div>
-          <p className="text-xs leading-relaxed text-slate-400">
-            A linear gradient generates a progressive color transition along a directional gradient line.
-            The angle is defined either through degrees (<code className="text-indigo-300">45deg</code>, <code className="text-indigo-300">135deg</code>) or standard directional keywords (<code className="text-indigo-300">to right</code>, <code className="text-indigo-300">to bottom left</code>).
+          <p className="text-xs leading-relaxed text-zinc-400">
+            Traditional sRGB color interpolation suffers from the notorious &quot;gray dead zone&quot; in the middle of complementary colors. By utilizing CSS Color 4 <code className="text-zinc-200 font-mono">in oklch</code>, color transitions remain perceptually uniform with vibrant chroma preservation across all degrees.
           </p>
-          <div className="rounded-lg bg-slate-900 p-2.5 font-mono text-[11px] text-emerald-400">
-            <code>background: linear-gradient(135deg, #f72585 0%, #4361ee 100%);</code>
+          <div className="rounded-lg bg-black/60 p-2.5 font-mono text-[11px] text-zinc-300 border border-white/5">
+            <code>background: linear-gradient(in oklch 135deg, #090a0f 0%, #334155 60%, #94a3b8 100%);</code>
           </div>
         </div>
 
         {/* Card 2: Radial & Conic Gradients */}
-        <div className="space-y-3 rounded-xl border border-slate-800 bg-slate-950/50 p-5">
-          <div className="flex items-center gap-2 text-purple-400">
-            <Sparkles className="h-5 w-5" />
-            <h3 className="text-base font-bold text-white">Radial &amp; Conic Gradient Geometry</h3>
+        <div className="space-y-3 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-5">
+          <div className="flex items-center gap-2 text-zinc-200">
+            <Sparkles className="h-4 w-4 text-zinc-400" />
+            <h3 className="text-sm font-bold text-white">Radial &amp; Conic Gradient Geometry</h3>
           </div>
-          <p className="text-xs leading-relaxed text-slate-400">
-            Radial gradients expand outward circularly or elliptically from an origin point (<code className="text-purple-300">center</code>, <code className="text-purple-300">top left</code>).
-            Conic gradients rotate colors 360° around a center coordinate, making them ideal for pie charts, color wheels, and ray-tracing effects.
+          <p className="text-xs leading-relaxed text-zinc-400">
+            Radial gradients project colors outward from a focal point using <code className="text-zinc-200 font-mono">circle</code> or <code className="text-zinc-200 font-mono">ellipse</code> geometry.
+            Conic gradients rotate colors 360° around an origin coordinate, ideal for rotational dials, gauges, and light-sweep ray effects.
           </p>
-          <div className="rounded-lg bg-slate-900 p-2.5 font-mono text-[11px] text-emerald-400">
-            <code>background: radial-gradient(circle at center, #00f2fe 0%, #4facfe 100%);</code>
+          <div className="rounded-lg bg-black/60 p-2.5 font-mono text-[11px] text-zinc-300 border border-white/5">
+            <code>background: radial-gradient(circle at center, #1e293b 0%, #090a0f 100%);</code>
           </div>
         </div>
 
-        {/* Card 3: Core Web Vitals Advantage */}
-        <div className="space-y-3 rounded-xl border border-slate-800 bg-slate-950/50 p-5">
-          <div className="flex items-center gap-2 text-emerald-400">
-            <Gauge className="h-5 w-5" />
-            <h3 className="text-base font-bold text-white">Why Pure CSS Crushes Image Backgrounds in Core Web Vitals</h3>
+        {/* Card 3: Glassmorphism Optics */}
+        <div className="space-y-3 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-5">
+          <div className="flex items-center gap-2 text-zinc-200">
+            <Layers className="h-4 w-4 text-zinc-400" />
+            <h3 className="text-sm font-bold text-white">High-Performance Glassmorphism</h3>
           </div>
-          <p className="text-xs leading-relaxed text-slate-400">
-            Replacing heavy PNG/JPG background images with native CSS gradients saves hundreds of kilobytes of network transfer, eliminates extra HTTP requests, avoids Cumulative Layout Shift (CLS), and achieves an instant <strong className="text-white">0ms Largest Contentful Paint (LCP)</strong>.
+          <p className="text-xs leading-relaxed text-zinc-400">
+            Glassmorphism combines <code className="text-zinc-200 font-mono">backdrop-filter: blur()</code> with sub-pixel alpha transparency.
+            For 60fps scrolling, always isolate blurred surfaces to dedicated GPU compositing layers using <code className="text-zinc-200 font-mono">will-change: transform</code> or <code className="text-zinc-200 font-mono">transform: translateZ(0)</code>.
           </p>
-          <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
-            <CheckCircle2 className="h-4 w-4" />
-            <span>100/100 Google Lighthouse &amp; PageSpeed Rating</span>
+          <div className="rounded-lg bg-black/60 p-2.5 font-mono text-[11px] text-zinc-300 border border-white/5">
+            <code>backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);</code>
           </div>
         </div>
 
-        {/* Card 4: Glassmorphism Architecture */}
-        <div className="space-y-3 rounded-xl border border-slate-800 bg-slate-950/50 p-5">
-          <div className="flex items-center gap-2 text-cyan-400">
-            <Layers className="h-5 w-5" />
-            <h3 className="text-base font-bold text-white">Hardware-Accelerated Glassmorphism</h3>
+        {/* Card 4: Multi-Layer Box Shadows */}
+        <div className="space-y-3 rounded-xl border border-white/[0.06] bg-zinc-900/40 p-5">
+          <div className="flex items-center gap-2 text-zinc-200">
+            <Gauge className="h-4 w-4 text-zinc-400" />
+            <h3 className="text-sm font-bold text-white">Realistic 3D Elevation Layering</h3>
           </div>
-          <p className="text-xs leading-relaxed text-slate-400">
-            Glassmorphism combines <code className="text-cyan-300">backdrop-filter: blur()</code> with translucent RGBA layers and sub-pixel borders. Always declare <code className="text-cyan-300">-webkit-backdrop-filter</code> alongside standard rules to support WebKit/Safari rendering engines without visual artifacts.
+          <p className="text-xs leading-relaxed text-zinc-400">
+            Single-layer box shadows look artificial and harsh. Top-tier design systems stack 2 to 4 subtle shadow layers: a tight ambient shadow for edge definition, and a soft, dispersed penumbra shadow for realistic optical depth.
           </p>
-          <div className="rounded-lg bg-slate-900 p-2.5 font-mono text-[11px] text-emerald-400">
-            <code>backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);</code>
+          <div className="rounded-lg bg-black/60 p-2.5 font-mono text-[11px] text-zinc-300 border border-white/5">
+            <code>box-shadow: 0 16px 32px -8px rgba(0,0,0,0.6), 0 4px 8px -2px rgba(0,0,0,0.4);</code>
           </div>
         </div>
       </div>

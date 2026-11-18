@@ -3,7 +3,6 @@ export type ToolMode =
   | 'glassmorphism'
   | 'neumorphism'
   | 'shadow'
-  | 'blob'
   | 'button'
   | 'text'
   | 'palettes';
@@ -14,6 +13,8 @@ export type GradientType =
   | 'conic'
   | 'repeating-linear'
   | 'mesh';
+
+export type ColorSpace = 'srgb' | 'oklch' | 'oklab';
 
 export type RadialShape = 'circle' | 'ellipse';
 export type RadialPosition =
@@ -38,6 +39,7 @@ export interface GradientState {
   angle: number; // 0 to 360
   radialShape: RadialShape;
   radialPosition: RadialPosition;
+  colorSpace: ColorSpace;
   stops: ColorStop[];
 }
 
@@ -96,7 +98,7 @@ export interface TextGradientState {
 
 export interface PalettePreset {
   name: string;
-  category: 'neon' | 'sunset' | 'ocean' | 'nature' | 'luxury' | 'pastel' | 'dark';
+  category: 'titanium' | 'aurora' | 'metals' | 'twilight' | 'minimal' | 'space';
   gradient: string;
   stops: ColorStop[];
   angle: number;

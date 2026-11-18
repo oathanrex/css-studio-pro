@@ -7,8 +7,24 @@ interface TrendingPalettesGridProps {
   onSelectPalette: (preset: PalettePreset) => void;
 }
 
+const CATEGORIES: { id: string; label: string }[] = [
+  { id: 'all', label: 'All Presets' },
+  { id: 'titanium', label: 'Titanium & Slate' },
+  { id: 'metals', label: 'Luxury Metals' },
+  { id: 'aurora', label: 'Nordic Aurora' },
+  { id: 'twilight', label: 'Tokyo Twilight' },
+  { id: 'space', label: 'Deep Space' },
+  { id: 'minimal', label: 'Editorial Minimal' },
+];
+
 export function TrendingPalettesGrid({ onSelectPalette }: TrendingPalettesGridProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const filteredPalettes =
+    selectedCategory === 'all'
+      ? TRENDING_PALETTES
+      : TRENDING_PALETTES.filter((p) => p.category === selectedCategory);
 
   const handleCopy = (e: React.MouseEvent, p: PalettePreset) => {
     e.stopPropagation();
@@ -19,50 +35,70 @@ export function TrendingPalettesGrid({ onSelectPalette }: TrendingPalettesGridPr
   };
 
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-xl">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+    <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-zinc-950/80 p-5 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
         <div>
-          <h3 className="flex items-center gap-1.5 text-sm font-bold text-white">
-            <Flame className="h-4 w-4 text-rose-500" />
-            <span>Curated Trending CSS Gradients</span>
+          <h3 className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-zinc-100">
+            <Flame className="h-3.5 w-3.5 text-zinc-400" />
+            <span>Curated Architectural Palettes</span>
           </h3>
-          <p className="text-xs text-slate-400">
-            Hand-crafted high-converting color transitions ready for your website.
+          <p className="text-[11px] text-zinc-400">
+            Engineered color harmonies with balanced optical contrast.
           </p>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div className="flex items-center gap-1 overflow-x-auto scrollbar-none">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`rounded-lg px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-all cursor-pointer ${
+                selectedCategory === cat.id
+                  ? 'bg-zinc-800 text-white font-semibold border border-white/10'
+                  : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-        {TRENDING_PALETTES.map((p) => (
+        {filteredPalettes.map((p) => (
           <div
             key={p.name}
             onClick={() => onSelectPalette(p)}
-            className="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-2.5 transition-all hover:border-slate-600 hover:shadow-lg"
+            className="group relative cursor-pointer overflow-hidden rounded-xl border border-white/[0.06] bg-zinc-900/40 p-2.5 transition-all hover:border-white/20 hover:bg-zinc-900/80 hover:shadow-xl"
           >
             {/* Color Swatch Preview */}
             <div
-              className="h-24 w-full rounded-lg shadow-inner transition-transform group-hover:scale-[1.02]"
+              className="h-24 w-full rounded-lg shadow-inner transition-transform duration-300 group-hover:scale-[1.01]"
               style={{ background: p.gradient }}
             />
 
             <div className="mt-2.5 flex items-center justify-between">
               <div>
-                <h4 className="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors">
+                <h4 className="text-xs font-semibold text-zinc-200 group-hover:text-white transition-colors">
                   {p.name}
                 </h4>
-                <span className="text-[10px] font-mono text-slate-500 uppercase">{p.category}</span>
+                <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider">
+                  {p.category}
+                </span>
               </div>
 
               <button
                 type="button"
                 onClick={(e) => handleCopy(e, p)}
-                className="flex items-center gap-1 rounded bg-slate-800 px-2 py-1 text-[10px] font-semibold text-slate-300 transition-all hover:bg-slate-700 cursor-pointer shadow-xs"
+                className="flex items-center gap-1 rounded bg-zinc-800 px-2 py-1 text-[10px] font-mono font-medium text-zinc-300 transition-all hover:bg-zinc-700 hover:text-white cursor-pointer shadow-xs border border-white/[0.06]"
                 title="Copy CSS"
               >
                 {copiedId === p.name ? (
                   <Check className="h-3 w-3 text-emerald-400" />
                 ) : (
-                  <Copy className="h-3 w-3" />
+                  <Copy className="h-3 w-3 text-zinc-400" />
                 )}
                 <span>{copiedId === p.name ? 'Copied' : 'CSS'}</span>
               </button>
