@@ -161,6 +161,12 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleInspectContrast = (hexColors: string[]) => {
+    if (!hexColors || hexColors.length === 0) return;
+    setActiveMode('accessibility');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-[#08090d] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
       <Navbar
@@ -244,7 +250,11 @@ export default function App() {
               )}
 
               {activeMode === 'palettes' && (
-                <TrendingPalettesGrid onSelectPalette={handleSelectPalette} />
+                <TrendingPalettesGrid
+                  onSelectPalette={handleSelectPalette}
+                  onInspectContrast={handleInspectContrast}
+                  currentGradient={gradient}
+                />
               )}
             </div>
           </div>
@@ -252,7 +262,11 @@ export default function App() {
 
         {/* Curated Gallery Section (Rendered below if on standard modes) */}
         {activeMode !== 'palettes' && activeMode !== 'color-wheel' && activeMode !== 'image-extract' && activeMode !== 'accessibility' && (
-          <TrendingPalettesGrid onSelectPalette={handleSelectPalette} />
+          <TrendingPalettesGrid
+            onSelectPalette={handleSelectPalette}
+            onInspectContrast={handleInspectContrast}
+            currentGradient={gradient}
+          />
         )}
 
         {/* Technical Architectural Knowledge Base */}
