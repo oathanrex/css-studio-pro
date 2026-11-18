@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="#08090d"/>
+  <rect x="1" y="1" width="30" height="30" rx="7" fill="none" stroke="#27272a" stroke-width="1"/>
+  <path d="M16 6L6 11L16 16L26 11L16 6Z" fill="url(#titanium)"/>
+  <path d="M6 21L16 26L26 21" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M6 16L16 21L26 16" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
