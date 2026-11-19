@@ -208,6 +208,8 @@ export default function App() {
                 textGrad={textGrad}
                 onCopyCss={handleCopyCss}
                 copied={copied}
+                onRandomize={handleRandomize}
+                onDownloadPng={handleDownloadPng}
               />
 
               {/* Code Export Box under canvas */}
@@ -226,7 +228,11 @@ export default function App() {
             {/* Control Dock (5 cols) */}
             <div className="lg:col-span-5">
               {activeMode === 'gradient' && (
-                <GradientControls state={gradient} onChange={setGradient} />
+                <GradientControls
+                  state={gradient}
+                  onChange={setGradient}
+                  onRandomize={handleRandomize}
+                />
               )}
 
               {activeMode === 'glassmorphism' && (

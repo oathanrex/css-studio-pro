@@ -1,15 +1,16 @@
-import { Plus, RotateCw, Sparkles, Trash2 } from 'lucide-react';
+import { Plus, RotateCw, Shuffle, Sparkles, Trash2 } from 'lucide-react';
 import React from 'react';
 import type { ColorSpace, GradientState, GradientType, RadialPosition, RadialShape } from '../types';
 
 interface GradientControlsProps {
   state: GradientState;
   onChange: (next: GradientState) => void;
+  onRandomize?: () => void;
 }
 
 const QUICK_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315];
 
-export function GradientControls({ state, onChange }: GradientControlsProps) {
+export function GradientControls({ state, onChange, onRandomize }: GradientControlsProps) {
   const handleTypeChange = (type: GradientType) => {
     onChange({ ...state, type });
   };
@@ -58,6 +59,17 @@ export function GradientControls({ state, onChange }: GradientControlsProps) {
             Sub-pixel multi-stop interpolations &amp; color spaces.
           </p>
         </div>
+        {onRandomize && (
+          <button
+            type="button"
+            onClick={onRandomize}
+            className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-800/90 hover:bg-zinc-200 dark:hover:bg-zinc-700/80 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 transition-all cursor-pointer shadow-xs active:scale-95"
+            title="Generate balanced random palette"
+          >
+            <Shuffle className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
+            <span>Randomize</span>
+          </button>
+        )}
       </div>
 
       {/* Gradient Mathematical Engine Type */}

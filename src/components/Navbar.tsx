@@ -1,10 +1,8 @@
 import {
   Check,
   Copy,
-  Download,
   Github,
   Moon,
-  Shuffle,
   Sun,
 } from 'lucide-react';
 import React, { useState } from 'react';
@@ -113,19 +111,7 @@ export function Navbar({
               <Github className="h-4 w-4" />
             </a>
 
-            {/* Desktop Actions (Hidden on mobile < xl, handled by MobileBottomDock) */}
-            {activeMode === 'gradient' && (
-              <button
-                type="button"
-                onClick={onRandomize}
-                className="hidden xl:flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-zinc-900/90 px-3.5 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white cursor-pointer shadow-xs"
-                title="Generate Balanced Palette"
-              >
-                <Shuffle className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
-                <span>Randomize</span>
-              </button>
-            )}
-
+            {/* Global Primary Action: Copy CSS (Desktop) */}
             <button
               type="button"
               onClick={onCopyCss}
@@ -147,18 +133,6 @@ export function Navbar({
                 </>
               )}
             </button>
-
-            {activeMode === 'gradient' && (
-              <button
-                type="button"
-                onClick={onDownloadPng}
-                className="hidden xl:flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-zinc-900/90 px-3.5 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white cursor-pointer shadow-xs"
-                title="Download 4K Ultra HD PNG"
-              >
-                <Download className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
-                <span>4K Wallpaper</span>
-              </button>
-            )}
           </div>
         </div>
       </header>

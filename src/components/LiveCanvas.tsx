@@ -1,10 +1,12 @@
 import {
   Check,
   Copy,
+  Download,
   Eye,
   Maximize2,
   Minimize2,
   Moon,
+  Shuffle,
   Sparkles,
   Sun,
 } from 'lucide-react';
@@ -31,6 +33,8 @@ interface LiveCanvasProps {
   textGrad: TextGradientState;
   onCopyCss: () => void;
   copied: boolean;
+  onRandomize?: () => void;
+  onDownloadPng?: () => void;
 }
 
 export function LiveCanvas({
@@ -44,6 +48,8 @@ export function LiveCanvas({
   textGrad,
   onCopyCss,
   copied,
+  onRandomize,
+  onDownloadPng,
 }: LiveCanvasProps) {
   const [backdrop, setBackdrop] = useState<'dark' | 'light' | 'checker'>('dark');
   const [aspectRatio, setAspectRatio] = useState<'fluid' | '16:9' | '9:16' | '1:1'>('fluid');
@@ -92,7 +98,7 @@ export function LiveCanvas({
 
       {/* Floating Precision Toolbar */}
       <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-white/90 dark:bg-zinc-950/90 p-1 backdrop-blur-xl z-20 shadow-lg">
-        {/* Aspect Ratio Switcher */}
+        {/* Gradient Specific Tools: Aspect Ratio + Randomize + 4K Export */}
         {mode === 'gradient' && (
           <div className="flex items-center gap-0.5 border-r border-zinc-200 dark:border-white/10 pr-1.5 mr-0.5">
             {(['fluid', '16:9', '9:16', '1:1'] as const).map((ratio) => (
@@ -110,6 +116,30 @@ export function LiveCanvas({
                 {ratio}
               </button>
             ))}
+
+            {onRandomize && (
+              <button
+                type="button"
+                onClick={onRandomize}
+                className="rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer ml-0.5"
+                title="Randomize Palette"
+                aria-label="Randomize Palette"
+              >
+                <Shuffle className="h-3.5 w-3.5" />
+              </button>
+            )}
+
+            {onDownloadPng && (
+              <button
+                type="button"
+                onClick={onDownloadPng}
+                className="rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+                title="Export 4K Ultra HD PNG Wallpaper"
+                aria-label="Export 4K Wallpaper"
+              >
+                <Download className="h-3.5 w-3.5" />
+              </button>
+            )}
           </div>
         )}
 
