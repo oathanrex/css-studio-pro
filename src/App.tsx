@@ -178,7 +178,7 @@ export default function App() {
         copied={copied}
       />
 
-      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 p-4 sm:p-6 lg:p-8 pb-28 lg:pb-8">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 p-4 sm:p-6 lg:p-8 pb-28 xl:pb-8">
         {/* Full-Width Flagship Suite Views */}
         {activeMode === 'color-wheel' && (
           <ColorWheelStudio onApplyToGradient={handleApplyColorsToGradient} />

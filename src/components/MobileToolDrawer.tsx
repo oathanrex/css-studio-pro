@@ -134,7 +134,7 @@ export function MobileToolDrawer({
   const categories = Array.from(new Set(WORKSPACE_TOOLS.map((t) => t.category)));
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end lg:hidden">
+    <div className="fixed inset-0 z-50 flex flex-col justify-end xl:hidden">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in"

@@ -22,7 +22,7 @@ export function MobileBottomDock({
   const Icon = currentTool.icon;
 
   return (
-    <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4 pointer-events-none lg:hidden">
+    <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4 pointer-events-none xl:hidden">
       <div className="pointer-events-auto flex items-center gap-1.5 sm:gap-2 rounded-full border border-zinc-200/90 dark:border-white/10 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl p-1.5 shadow-2xl transition-all">
         {/* Tool Switcher Button */}
         <button

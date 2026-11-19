@@ -36,9 +36,9 @@ export function Navbar({
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-zinc-200/80 dark:border-white/[0.08] bg-white/90 dark:bg-[#090a0f]/90 backdrop-blur-xl px-4 py-2.5 transition-colors duration-200">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3">
           {/* Brand Identity */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-zinc-900 dark:bg-gradient-to-b dark:from-zinc-800 dark:to-zinc-950 border border-zinc-800 dark:border-white/10 shadow-xs">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#f4f4f5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -61,8 +61,8 @@ export function Navbar({
             </div>
           </div>
 
-          {/* Desktop Only: High-Precision Fluid Segmented Navigation Tabs (Hidden on mobile/tablet < lg) */}
-          <nav className="hidden lg:flex items-center gap-1 rounded-full border border-zinc-200/90 dark:border-white/[0.08] bg-zinc-100/90 dark:bg-zinc-950/80 p-1 shadow-inner">
+          {/* Desktop Only: High-Precision Fluid Segmented Navigation Tabs (Hidden on mobile/tablet < xl) */}
+          <nav className="hidden xl:flex items-center gap-1 rounded-full border border-zinc-200/90 dark:border-white/[0.08] bg-zinc-100/90 dark:bg-zinc-950/80 p-1 shadow-inner shrink-0">
             {WORKSPACE_TOOLS.map((t) => {
               const Icon = t.icon;
               const isActive = activeMode === t.id;
@@ -71,7 +71,7 @@ export function Navbar({
                   key={t.id}
                   type="button"
                   onClick={() => onSelectMode(t.id)}
-                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+                  className={`flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
                     isActive
                       ? 'bg-white dark:bg-zinc-800 text-zinc-950 dark:text-white shadow-xs border border-zinc-200/80 dark:border-white/10 font-semibold'
                       : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 hover:bg-zinc-200/60 dark:hover:bg-zinc-900/50 border border-transparent'
@@ -85,7 +85,7 @@ export function Navbar({
           </nav>
 
           {/* Studio Actions & Theme Switcher */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             {/* Light / Dark Mode Toggle Pill (Always clean & accessible) */}
             <button
               type="button"
@@ -113,12 +113,12 @@ export function Navbar({
               <Github className="h-4 w-4" />
             </a>
 
-            {/* Desktop Actions (Hidden on mobile < lg, handled by MobileBottomDock) */}
+            {/* Desktop Actions (Hidden on mobile < xl, handled by MobileBottomDock) */}
             {activeMode === 'gradient' && (
               <button
                 type="button"
                 onClick={onRandomize}
-                className="hidden lg:flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-zinc-900/90 px-3.5 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white cursor-pointer shadow-xs"
+                className="hidden xl:flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-zinc-900/90 px-3.5 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white cursor-pointer shadow-xs"
                 title="Generate Balanced Palette"
               >
                 <Shuffle className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
@@ -129,7 +129,7 @@ export function Navbar({
             <button
               type="button"
               onClick={onCopyCss}
-              className={`hidden lg:flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold shadow-xs transition-all cursor-pointer ${
+              className={`hidden xl:flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold shadow-xs transition-all cursor-pointer ${
                 copied
                   ? 'bg-emerald-600 text-white'
                   : 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 hover:bg-black dark:hover:bg-white'
