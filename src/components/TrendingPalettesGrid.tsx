@@ -1,4 +1,5 @@
 import {
+  AlertCircle,
   Bookmark,
   BookmarkCheck,
   Check,
@@ -15,7 +16,7 @@ import {
   Upload,
   Zap,
 } from 'lucide-react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TRENDING_PALETTES } from '../engine/trendingPalettes';
 import type { ColorStop, GradientState, PalettePreset } from '../types';
 
@@ -37,6 +38,90 @@ const CATEGORIES: { id: string; label: string }[] = [
 
 const LOCAL_STORAGE_KEY = 'css-studio-saved-palettes';
 
+interface CompactPalette {
+  name: string;
+  category?: string;
+  angle: number;
+  stops: ColorStop[];
+}
+
+function inflatePreset(p: any): PalettePreset {
+  const angle = typeof p.angle === 'number' ? p.angle : 135;
+  const stops: ColorStop[] = Array.isArray(p.stops) ? p.stops : [];
+  const gradient =
+    p.gradient ||
+    `linear-gradient(${angle}deg, ${stops.map((s) => `${s.color} ${s.position}%`).join(', ')})`;
+  return {
+    name: p.name || 'Custom Palette',
+    category: p.category || 'titanium',
+    angle,
+    stops,
+    gradient,
+  };
+}
+
+function deflatePreset(p: PalettePreset): CompactPalette {
+  return {
+    name: p.name,
+    category: p.category,
+    angle: p.angle,
+    stops: p.stops.map((s) => ({ id: s.id, color: s.color, position: s.position })),
+  };
+}
+
+function loadSavedPalettes(): PalettePreset[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY) || sessionStorage.getItem(LOCAL_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed.map(inflatePreset);
+      }
+    }
+  } catch {
+    // Graceful fallback if storage access is restricted or throws
+  }
+  return [];
+}
+
+function persistPalettes(palettes: PalettePreset[]): { ok: boolean; quotaWarning: boolean } {
+  if (typeof window === 'undefined') return { ok: true, quotaWarning: false };
+  // Cap to 30 custom palettes and strip redundant gradient strings to minimize footprint by >75%
+  const compact = palettes.slice(0, 30).map(deflatePreset);
+  const serialized = JSON.stringify(compact);
+
+  try {
+    localStorage.setItem(LOCAL_STORAGE_KEY, serialized);
+    return { ok: true, quotaWarning: false };
+  } catch (err: any) {
+    const isQuota =
+      err?.name === 'QuotaExceededError' ||
+      err?.code === 22 ||
+      err?.code === 1014 ||
+      err?.number === -2147024882;
+
+    if (isQuota) {
+      // Attempt 1: Trim to top 10 most recent
+      try {
+        const trimmed = compact.slice(0, 10);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(trimmed));
+        return { ok: true, quotaWarning: false };
+      } catch {
+        // Attempt 2: Domain-wide quota is 100% full (e.g. other apps on oathanrex.github.io). Fallback to sessionStorage
+        try {
+          sessionStorage.setItem(LOCAL_STORAGE_KEY, serialized);
+          return { ok: true, quotaWarning: true };
+        } catch {
+          // Keep in-memory in React state without throwing red console errors
+          return { ok: false, quotaWarning: true };
+        }
+      }
+    }
+    return { ok: false, quotaWarning: false };
+  }
+}
+
 export function TrendingPalettesGrid({
   onSelectPalette,
   onInspectContrast,
@@ -46,27 +131,20 @@ export function TrendingPalettesGrid({
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [storageWarning, setStorageWarning] = useState<boolean>(false);
 
-  // User Saved Palettes from LocalStorage
-  const [savedPalettes, setSavedPalettes] = useState<PalettePreset[]>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (saved) return JSON.parse(saved);
-      } catch (err) {
-        console.error('Failed to parse saved palettes', err);
-      }
-    }
-    return [];
-  });
+  // User Saved Palettes from LocalStorage with resilient fallback
+  const [savedPalettes, setSavedPalettes] = useState<PalettePreset[]>(loadSavedPalettes);
+  const isFirstRender = useRef(true);
 
-  // Sync to LocalStorage
+  // Sync to Storage ONLY on actual state mutations (never on initial mount!)
   useEffect(() => {
-    try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedPalettes));
-    } catch (err) {
-      console.error('Failed to save palettes to storage', err);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
+    const { quotaWarning } = persistPalettes(savedPalettes);
+    setStorageWarning(quotaWarning);
   }, [savedPalettes]);
 
   // Save active studio gradient into user library
@@ -168,6 +246,32 @@ export function TrendingPalettesGrid({
       setCopiedId(hex);
       setTimeout(() => setCopiedId(null), 1500);
     });
+  };
+
+  // Export all saved palettes to JSON
+  const handleExportAllJson = () => {
+    if (savedPalettes.length === 0) return;
+    const blob = new Blob([JSON.stringify(savedPalettes, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `css-studio-palettes-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Clear all saved palettes
+  const handleClearAllSaved = () => {
+    if (window.confirm('Clear all saved palettes from your personal library?')) {
+      setSavedPalettes([]);
+      try {
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        sessionStorage.removeItem(LOCAL_STORAGE_KEY);
+      } catch {
+        // Ignore
+      }
+      setStorageWarning(false);
+    }
   };
 
   return (
@@ -368,19 +472,66 @@ export function TrendingPalettesGrid({
           })}
 
         {/* If Active Tab is Saved Library */}
-        {activeTab === 'saved' &&
-          (filteredSaved.length === 0 ? (
-            <div className="col-span-full rounded-3xl border border-dashed border-zinc-300 dark:border-white/15 p-12 text-center space-y-3">
-              <Bookmark className="mx-auto h-8 w-8 text-zinc-400" />
-              <h4 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
-                No Saved Palettes Yet
-              </h4>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-md mx-auto">
-                Click <span className="font-semibold text-zinc-800 dark:text-zinc-200">&quot;Save Active to Library&quot;</span> above or in the studio editor to save and persist your custom palettes here in browser storage!
-              </p>
-            </div>
-          ) : (
-            filteredSaved.map((p, idx) => (
+        {activeTab === 'saved' && (
+          <>
+            {/* Storage Quota Warning Notice */}
+            {storageWarning && (
+              <div className="col-span-full flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl bg-amber-500/10 border border-amber-500/25 p-3.5 text-xs text-amber-800 dark:text-amber-300">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4 shrink-0 text-amber-500" />
+                  <span>Browser storage quota reached on this domain. Your custom palettes are safely preserved in active session memory.</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleExportAllJson}
+                  className="font-semibold underline underline-offset-2 hover:text-amber-950 dark:hover:text-amber-100 shrink-0 cursor-pointer"
+                >
+                  Export Backup (JSON) →
+                </button>
+              </div>
+            )}
+
+            {/* Saved Library Toolbar */}
+            {savedPalettes.length > 0 && (
+              <div className="col-span-full flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-white/[0.06] text-xs">
+                <span className="text-zinc-500 font-mono text-[11px]">
+                  {savedPalettes.length} Custom Palette{savedPalettes.length > 1 ? 's' : ''} Stored
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleExportAllJson}
+                    className="flex items-center gap-1 rounded-full border border-zinc-300 dark:border-white/10 px-3 py-1 text-[11px] font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                    title="Download backup file of all saved palettes"
+                  >
+                    <Download className="h-3 w-3" />
+                    <span>Export JSON</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleClearAllSaved}
+                    className="flex items-center gap-1 rounded-full border border-rose-200 dark:border-rose-900/40 px-3 py-1 text-[11px] font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                    title="Clear personal library"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                    <span>Clear All</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {filteredSaved.length === 0 ? (
+              <div className="col-span-full rounded-3xl border border-dashed border-zinc-300 dark:border-white/15 p-12 text-center space-y-3">
+                <Bookmark className="mx-auto h-8 w-8 text-zinc-400" />
+                <h4 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+                  No Saved Palettes Yet
+                </h4>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-md mx-auto">
+                  Click <span className="font-semibold text-zinc-800 dark:text-zinc-200">&quot;Save Active to Library&quot;</span> above or in the studio editor to save and persist your custom palettes here in browser storage!
+                </p>
+              </div>
+            ) : (
+              filteredSaved.map((p, idx) => (
               <div
                 key={`${p.name}-${idx}`}
                 onClick={() => onSelectPalette(p)}
@@ -465,7 +616,9 @@ export function TrendingPalettesGrid({
                 </div>
               </div>
             ))
-          ))}
+          )}
+        </>
+      )}
       </div>
     </div>
   );

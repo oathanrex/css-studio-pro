@@ -13,9 +13,13 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('css-studio-theme');
-      if (saved === 'dark' || saved === 'light') {
-        return saved;
+      try {
+        const saved = localStorage.getItem('css-studio-theme');
+        if (saved === 'dark' || saved === 'light') {
+          return saved;
+        }
+      } catch {
+        // Fallback gracefully if storage access is restricted or throwing
       }
     }
     return 'dark'; // default to obsidian studio dark
@@ -39,7 +43,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
     }
 
-    localStorage.setItem('css-studio-theme', theme);
+    try {
+      localStorage.setItem('css-studio-theme', theme);
+    } catch {
+      // Safe fallback if origin storage quota is full
+    }
   }, [theme]);
 
   const toggleTheme = () => {
