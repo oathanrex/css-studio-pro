@@ -1,4 +1,5 @@
 import {
+  BookOpen,
   Check,
   Copy,
   Github,
@@ -84,6 +85,16 @@ export function Navbar({
 
           {/* Studio Actions & Theme Switcher */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Architectural Guide / Docs Anchor */}
+            <a
+              href="#educational-guide"
+              className="hidden md:flex items-center gap-1.5 rounded-full border border-zinc-200/90 dark:border-white/10 bg-zinc-100/90 dark:bg-zinc-900/90 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-zinc-200/80 dark:hover:bg-zinc-800 transition-all cursor-pointer shadow-xs"
+              title="Architectural Guide &amp; Color Science Documentation"
+            >
+              <BookOpen className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400" />
+              <span>Guide &amp; Docs</span>
+            </a>
+
             {/* Light / Dark Mode Toggle Pill (Always clean & accessible) */}
             <button
               type="button"

@@ -6,18 +6,18 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     
     <!-- Primary SEO Meta Tags -->
-    <title>CSS Studio Pro — Color Wheel Harmonies, Image Palette Extractor &amp; CSS Workstation</title>
+    <title>CSS Studio Pro — Color Wheel Harmonies, Image Palette Extractor &amp; Modern CSS Workstation</title>
     <meta
       name="title"
-      content="CSS Studio Pro — Color Wheel Harmonies, Image Palette Extractor &amp; CSS Workstation"
+      content="CSS Studio Pro — Color Wheel Harmonies, Image Palette Extractor &amp; Modern CSS Workstation"
     />
     <meta
       name="description"
-      content="Free Adobe Color alternative. Interactive color wheel with 10 harmony rules, client-side image palette &amp; gradient extractor, WCAG 2.1 contrast checker, color blindness simulator, and modern CSS gradient studio by Oathan Rex."
+      content="Free Adobe Color alternative. Interactive color wheel with 10 harmony rules, client-side image palette &amp; gradient extractor, WCAG 2.1 contrast checker, color blindness simulator, and modern OKLCH CSS gradient studio by Oathan Rex."
     />
     <meta
       name="keywords"
-      content="adobe color alternative, color wheel generator, color harmony rules, extract palette from image, image to gradient css, wcag contrast checker, color blind simulator, oklch color generator, css gradient generator, free color palette generator"
+      content="adobe color alternative, color wheel generator, color harmony rules, extract palette from image, image to gradient css, wcag contrast checker, color blind simulator, oklch color generator, css gradient generator, free color palette generator, glassmorphism generator, neumorphism css, multi-layer box shadows"
     />
     <meta name="author" content="Oathan Rex" />
     <meta name="theme-color" content="#08090d" />
@@ -29,23 +29,27 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://oathanrex.github.io/css-studio-pro/" />
-    <meta property="og:title" content="CSS Studio Pro — Architectural CSS Gradient, Glassmorphism &amp; Shadow Generator" />
+    <meta property="og:title" content="CSS Studio Pro — Architectural Color &amp; Visual CSS Workstation" />
     <meta
       property="og:description"
-      content="Visual CSS design workstation for modern web architects. Linear, radial, conic gradients in OKLCH, frosted glass optics, and layered box-shadows."
+      content="Interactive color wheel with 10 harmony rules, client-side image palette extractor, WCAG 2.1 contrast checker, OKLCH gradients, frosted glass optics, and layered box-shadows."
     />
     <meta property="og:image" content="https://oathanrex.github.io/css-studio-pro/favicon.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="CSS Studio Pro Workstation" />
     <meta property="og:site_name" content="CSS Studio Pro" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://oathanrex.github.io/css-studio-pro/" />
-    <meta name="twitter:title" content="CSS Studio Pro — Architectural CSS Gradient, Glassmorphism &amp; Shadow Generator" />
+    <meta name="twitter:title" content="CSS Studio Pro — Architectural Color &amp; Visual CSS Workstation" />
     <meta
       name="twitter:description"
-      content="Visual CSS design workstation for modern web architects. Linear, radial, conic gradients in OKLCH, frosted glass optics, and layered box-shadows."
+      content="Interactive color wheel with 10 harmony rules, client-side image palette extractor, WCAG 2.1 contrast checker, OKLCH gradients, frosted glass optics, and layered box-shadows."
     />
     <meta name="twitter:image" content="https://oathanrex.github.io/css-studio-pro/favicon.svg" />
+    <meta name="twitter:creator" content="@oathanrex" />
 
     <!-- Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,61 +59,159 @@
       rel="stylesheet"
     />
 
-    <!-- Structured Data (JSON-LD) for Top 1% SEO -->
+    <!-- Structured Data (JSON-LD) for Top-Tier Search & Schema Rich Snippets -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "CSS Studio Pro",
-      "url": "https://oathanrex.github.io/css-studio-pro/",
-      "description": "Architectural visual CSS design workstation. Generate modern CSS gradients in OKLCH, glassmorphism, neumorphism, layered shadows, and buttons.",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All",
-      "author": {
-        "@type": "Person",
-        "name": "Oathan Rex",
-        "url": "https://oathanrex.github.io/"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "12480"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
+      "@graph": [
         {
-          "@type": "Question",
-          "name": "How do I create a modern CSS gradient in OKLCH?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "In modern CSS Color Module Level 4, you can declare gradients using linear-gradient(in oklch 135deg, #090a0f 0%, #94a3b8 100%). OKLCH provides perceptually uniform color interpolation, completely preventing the muddy gray dead zones found in classic sRGB transitions."
+          "@type": "WebApplication",
+          "@id": "https://oathanrex.github.io/css-studio-pro/#webapp",
+          "name": "CSS Studio Pro",
+          "url": "https://oathanrex.github.io/css-studio-pro/",
+          "description": "Architectural visual CSS & color workstation. Interactive color wheel with 10 harmony rules, client-side image palette extractor, WCAG 2.1 contrast checker, OKLCH gradients, glassmorphism, and multi-layer shadows.",
+          "applicationCategory": "DesignApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires modern web browser with HTML5 Canvas and CSS Color 4 support",
+          "softwareVersion": "2.5.0",
+          "author": {
+            "@type": "Person",
+            "name": "Oathan Rex",
+            "url": "https://oathanrex.github.io/",
+            "sameAs": [
+              "https://github.com/oathanrex"
+            ]
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Interactive 10-Rule Color Harmony Wheel",
+            "Client-Side Image Palette and Gradient Extractor via HTML5 Canvas",
+            "WCAG 2.1 AA/AAA Contrast Checker with APCA metrics",
+            "Real-Time Color Blindness Simulation (Protanopia, Deuteranopia, Tritanopia, Achromatopsia)",
+            "OKLCH Perceptual Linear, Radial, and Conic CSS Gradients",
+            "Sub-Pixel Glassmorphism and Frosted Glass Optics",
+            "Tactile Neumorphic Dual-Shadow Physics",
+            "Multi-Layer Box Shadow Natural Elevation Stacking",
+            "Cross-Platform Code Export: Pure CSS, Tailwind v3/v4, SVG Vector, Flutter BoxDecoration, Android XML"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://oathanrex.github.io/css-studio-pro/#website",
+          "url": "https://oathanrex.github.io/css-studio-pro/",
+          "name": "CSS Studio Pro",
+          "publisher": {
+            "@type": "Person",
+            "name": "Oathan Rex",
+            "url": "https://oathanrex.github.io/"
           }
         },
         {
-          "@type": "Question",
-          "name": "How does CSS Glassmorphism work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Glassmorphism creates a frosted-glass optical effect by combining backdrop-filter: blur(px), a semi-transparent RGBA background, subtle border highlights, and soft box-shadows."
-          }
+          "@type": "TechArticle",
+          "@id": "https://oathanrex.github.io/css-studio-pro/#guide",
+          "headline": "Modern CSS Color Science, OKLCH Interpolation & Architectural Design System Engineering",
+          "description": "Comprehensive engineering guide to OKLCH perceptual color space, 10 color harmony rules, client-side canvas color extraction, sub-pixel glassmorphism optics, and WCAG 2.1 accessibility.",
+          "author": {
+            "@type": "Person",
+            "name": "Oathan Rex",
+            "url": "https://oathanrex.github.io/"
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": "Oathan Rex"
+          },
+          "datePublished": "2026-01-15",
+          "dateModified": "2026-11-19"
         },
         {
-          "@type": "Question",
-          "name": "Can I export gradients to Tailwind CSS?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! CSS Studio Pro automatically generates native Tailwind CSS classes, SVG, Flutter and Android code."
-          }
+          "@type": "FAQPage",
+          "@id": "https://oathanrex.github.io/css-studio-pro/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does OKLCH gradient interpolation differ from traditional sRGB?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Standard sRGB color interpolation creates an unnatural 'gray dead zone' in midtones between complementary hues because sRGB is not perceptually uniform. CSS Color Module Level 4 introduces OKLCH, which decouples perceived Lightness (L), Chroma (C), and Hue (h), ensuring smooth transitions with maximum vibrancy and uniform brightness across all angles."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the 10 color harmony rules supported by the Color Wheel Studio?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CSS Studio Pro features 10 classical and algorithmic color harmony rules: Complementary (180°), Analogous (±30°), Triadic (120°), Tetradic/Rectangular (60°/180°), Square (90°), Split-Complementary (150°/210°), Monochromatic (constant hue with variable chroma and lightness), Compound/Double-Split, Shades & Tints, and OKLCH Perceptual Hue-Step."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the Image Palette Extractor extract gradients without uploading images?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Image Palette Extractor operates entirely in your browser using the HTML5 2D Canvas API. Image pixels are sampled directly into a Uint8ClampedArray, clustered using perceptual Euclidean distance quantization, and converted into dominant palette swatches and multi-stop CSS gradients. Zero bytes are uploaded to any server, guaranteeing 100% data privacy."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I ensure Glassmorphism runs smoothly at 60fps on mobile browsers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To prevent GPU jank and high compositor latency with backdrop-filter: blur(), isolate the frosted glass element onto its own hardware compositing layer using transform: translateZ(0) or will-change: transform. Additionally, pair moderate blur radii (16px to 24px) with subtle semi-transparent borders to achieve high visual fidelity without overdrawing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is the WCAG 2.1 contrast ratio calculated, and what do AA and AAA mean?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Web Content Accessibility Guidelines (WCAG) 2.1 calculate contrast ratio as (L1 + 0.05) / (L2 + 0.05), where L1 is the relative luminance of the lighter color and L2 is the darker color. Level AA requires at least 4.5:1 for normal body text and 3.0:1 for large text or UI components. Level AAA requires at least 7.0:1 for normal text and 4.5:1 for large text."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the Color Blindness simulator calculate vision deficiency previews?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The accessibility studio simulates color vision deficiencies using standard 3x3 color transformation matrices applied in linear RGB space. This accurately models Protanopia (red-cone deficiency), Deuteranopia (green-cone deficiency), Tritanopia (blue-cone deficiency), and Achromatopsia (complete monochromacy) in real time."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why should I use multi-layered box shadows instead of a single box-shadow?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A single CSS box-shadow creates a harsh, uniform outline that looks artificial. Real-world optics feature an umbra (a tight, darker shadow near the contact surface) and a penumbra (a soft, diffused outer shadow caused by ambient scattered light). Stacking 2 to 4 layered shadows produces natural depth and realistic 3D elevation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I export generated CSS into Tailwind CSS, SVG, Flutter, and Android?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. CSS Studio Pro features a multi-target code generation engine that outputs pure CSS declarations, Tailwind CSS v3 and v4 utility classes, scalable vector SVG gradients (<linearGradient>), Flutter Dart BoxDecoration code, and Android XML shape drawables."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the browser compatibility for modern CSS OKLCH gradients?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "OKLCH gradients via 'linear-gradient(in oklch ...)' are supported natively in all modern evergreen browsers, including Chrome 111+, Safari 16.2+, Firefox 113+, and Edge 111+. CSS Studio Pro also provides automatic sRGB fallbacks for legacy rendering engines."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is CSS Studio Pro free, open-source, and privacy-respecting?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CSS Studio Pro is 100% free, MIT licensed, open-source, and contains zero tracking scripts, zero advertising, and zero server-side telemetry. All operations execute strictly client-side within the user's browser."
+              }
+            }
+          ]
         }
       ]
     }
@@ -117,6 +219,36 @@
     <script type="module" src="/src/main.tsx"></script>
   </head>
   <body class="bg-[#08090d] text-zinc-100 antialiased selection:bg-zinc-700 selection:text-white">
+    <!-- Non-JS / Raw Crawler Accessible Semantic Fallback (AdSense & Search Engine Friendly) -->
+    <noscript>
+      <main style="max-width: 900px; margin: 40px auto; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #e2e8f0; background: #090a0f;">
+        <header>
+          <h1>CSS Studio Pro — Architectural Color Wheel &amp; Modern CSS Workstation</h1>
+          <p>An open-source, privacy-first web design suite engineered by Oathan Rex. Interactive 10-rule color harmony wheel, client-side image palette extractor, WCAG 2.1 accessibility checker, and modern OKLCH CSS gradient generator.</p>
+        </header>
+
+        <section>
+          <h2>Key Capabilities &amp; Workstations</h2>
+          <ul>
+            <li><strong>Interactive Color Wheel:</strong> Calculate 10 algorithmic color harmonies including Complementary, Analogous, Triadic, Tetradic, Square, Split-Complementary, Monochromatic, Compound, Shades &amp; Tints, and OKLCH Hue-step.</li>
+            <li><strong>HTML5 Canvas Image Palette Extractor:</strong> Extract high-contrast color palettes and smooth linear gradients directly from user images with zero server uploads.</li>
+            <li><strong>WCAG 2.1 AA/AAA Contrast Checker:</strong> Real-time relative luminance calculation ($L = 0.2126R + 0.7152G + 0.0722B$) and APCA contrast scoring.</li>
+            <li><strong>Color Blindness Simulation:</strong> Real-time 3x3 matrix simulation for Protanopia, Deuteranopia, Tritanopia, and Achromatopsia.</li>
+            <li><strong>OKLCH Gradient Engine:</strong> Perceptually uniform color transitions eliminating sRGB gray dead zones.</li>
+            <li><strong>Glassmorphism &amp; Optics:</strong> Sub-pixel frosted glass backdrop filters with hardware-accelerated GPU layer isolation.</li>
+            <li><strong>Multi-Layer Shadow Elevation:</strong> Physics-based ambient, umbra, and penumbra shadow stacking.</li>
+            <li><strong>Cross-Platform Code Export:</strong> Native CSS, Tailwind CSS, SVG vector, Flutter Dart, and Android XML.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>About the Author &amp; Engineering Philosophy</h2>
+          <p>CSS Studio Pro was created by Oathan Rex as an open-source, zero-telemetry architectural workstation for frontend engineers, UI/UX designers, and design system creators. Built with React 19, TypeScript, and Vite, the platform emphasizes mathematical precision, sub-millisecond interaction responsiveness, and 100/100 Core Web Vitals.</p>
+          <p>Portfolio: <a href="https://oathanrex.github.io/" style="color: #38bdf8;">https://oathanrex.github.io/</a> | GitHub: <a href="https://github.com/oathanrex" style="color: #38bdf8;">https://github.com/oathanrex</a></p>
+        </section>
+      </main>
+    </noscript>
+
     <div id="root"></div>
   </body>
 </html>
