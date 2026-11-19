@@ -23,6 +23,7 @@ import type { ColorStop, GradientState, PalettePreset } from '../types';
 interface TrendingPalettesGridProps {
   onSelectPalette: (preset: PalettePreset) => void;
   onInspectContrast?: (hexColors: string[]) => void;
+  onOpenProModal?: () => void;
   currentGradient?: GradientState;
 }
 
@@ -125,6 +126,7 @@ function persistPalettes(palettes: PalettePreset[]): { ok: boolean; quotaWarning
 export function TrendingPalettesGrid({
   onSelectPalette,
   onInspectContrast,
+  onOpenProModal,
   currentGradient,
 }: TrendingPalettesGridProps) {
   const [activeTab, setActiveTab] = useState<'presets' | 'saved'>('presets');
@@ -292,8 +294,20 @@ export function TrendingPalettesGrid({
           </p>
         </div>
 
-        {/* Studio Quick Actions: Save Active Gradient */}
+        {/* Studio Quick Actions: Pro Bundle & Save Active Gradient */}
         <div className="flex flex-wrap items-center gap-2">
+          {onOpenProModal && (
+            <button
+              type="button"
+              onClick={onOpenProModal}
+              className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500/15 to-orange-500/15 hover:from-amber-500/25 hover:to-orange-500/25 border border-amber-500/35 hover:border-amber-500 text-amber-700 dark:text-amber-300 px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer shadow-xs hover:scale-105"
+              title="Download 500+ Curated Design Tokens &amp; Tailwind v4 Bundle"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <span>Get 500+ Pro Tokens</span>
+            </button>
+          )}
+
           {currentGradient && (
             <button
               type="button"

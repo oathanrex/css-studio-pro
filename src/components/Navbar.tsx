@@ -4,6 +4,7 @@ import {
   Copy,
   Github,
   Moon,
+  Sparkles,
   Sun,
 } from 'lucide-react';
 import React, { useState } from 'react';
@@ -18,6 +19,7 @@ interface NavbarProps {
   onRandomize: () => void;
   onCopyCss: () => void;
   onDownloadPng: () => void;
+  onOpenProModal?: () => void;
   copied: boolean;
 }
 
@@ -27,6 +29,7 @@ export function Navbar({
   onRandomize,
   onCopyCss,
   onDownloadPng,
+  onOpenProModal,
   copied,
 }: NavbarProps) {
   const { theme, toggleTheme } = useTheme();
@@ -85,6 +88,18 @@ export function Navbar({
 
           {/* Studio Actions & Theme Switcher */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Pro Bundle High-Converting Trigger */}
+            <button
+              type="button"
+              onClick={onOpenProModal}
+              className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-500/15 border border-amber-500/40 hover:border-amber-500 px-3 py-1.5 text-xs font-semibold text-amber-700 dark:text-amber-300 hover:text-amber-950 dark:hover:text-amber-100 transition-all cursor-pointer shadow-xs hover:scale-105"
+              title="Unlock 500+ Executive Design Tokens &amp; Tailwind v4 Bundle"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-amber-500 animate-pulse" />
+              <span>Pro Bundle</span>
+              <span className="rounded-full bg-amber-500 text-black font-bold text-[9px] px-1.5 py-0.2">500+</span>
+            </button>
+
             {/* Architectural Guide / Docs Anchor */}
             <a
               href="#educational-guide"

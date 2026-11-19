@@ -11,6 +11,7 @@ import { ImageExtractStudio } from './components/ImageExtractStudio';
 import { LiveCanvas } from './components/LiveCanvas';
 import { Navbar } from './components/Navbar';
 import { NeumorphismControls } from './components/NeumorphismControls';
+import { ProBundleModal } from './components/ProBundleModal';
 import { SeoEducationalContent } from './components/SeoEducationalContent';
 import { ShadowControls } from './components/ShadowControls';
 import { TextGradientControls } from './components/TextGradientControls';
@@ -31,6 +32,7 @@ import type {
 export default function App() {
   const [activeMode, setActiveMode] = useState<ToolMode>('gradient');
   const [copied, setCopied] = useState(false);
+  const [isProModalOpen, setIsProModalOpen] = useState(false);
 
   // Top 1% Architectural Signature Gradient (Liquid Titanium & Obsidian)
   const [gradient, setGradient] = useState<GradientState>({
@@ -175,6 +177,7 @@ export default function App() {
         onRandomize={handleRandomize}
         onCopyCss={handleCopyCss}
         onDownloadPng={handleDownloadPng}
+        onOpenProModal={() => setIsProModalOpen(true)}
         copied={copied}
       />
 
@@ -259,6 +262,7 @@ export default function App() {
                 <TrendingPalettesGrid
                   onSelectPalette={handleSelectPalette}
                   onInspectContrast={handleInspectContrast}
+                  onOpenProModal={() => setIsProModalOpen(true)}
                   currentGradient={gradient}
                 />
               )}
@@ -271,6 +275,7 @@ export default function App() {
           <TrendingPalettesGrid
             onSelectPalette={handleSelectPalette}
             onInspectContrast={handleInspectContrast}
+            onOpenProModal={() => setIsProModalOpen(true)}
             currentGradient={gradient}
           />
         )}
@@ -283,6 +288,12 @@ export default function App() {
       </main>
 
       <Footer />
+
+      {/* 500+ Executive Tokens Pro Modal */}
+      <ProBundleModal
+        isOpen={isProModalOpen}
+        onClose={() => setIsProModalOpen(false)}
+      />
     </div>
   );
 }

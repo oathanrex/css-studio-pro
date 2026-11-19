@@ -1,6 +1,7 @@
 import {
   BookOpen,
   Code2,
+  Coffee,
   ExternalLink,
   Github,
   Globe,
@@ -62,6 +63,17 @@ export function Footer() {
               >
                 <Github className="h-3 w-3 text-zinc-500" />
                 <span>GitHub Profile</span>
+              </a>
+
+              <a
+                href="https://buymeacoffee.com/oathanrex"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-[#FFDD00]/15 hover:bg-[#FFDD00]/25 px-3 py-1.5 text-[11px] font-semibold text-amber-800 dark:text-amber-300 transition-all shadow-xs hover:scale-105"
+                title="Support Oathan Rex on Buy Me a Coffee"
+              >
+                <Coffee className="h-3 w-3 text-amber-600 dark:text-amber-400" />
+                <span>Buy Me a Coffee</span>
               </a>
             </div>
           </div>
