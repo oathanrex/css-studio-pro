@@ -106,7 +106,7 @@ export function LiveCanvas({
                 key={ratio}
                 type="button"
                 onClick={() => setAspectRatio(ratio)}
-                className={`rounded-full px-2.5 py-1 text-[10px] font-mono font-medium transition-all cursor-pointer ${
+                className={`rounded-full px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-mono font-medium transition-all cursor-pointer ${
                   aspectRatio === ratio
                     ? 'bg-zinc-900 dark:bg-zinc-800 text-white shadow-xs'
                     : 'text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white'
@@ -117,11 +117,12 @@ export function LiveCanvas({
               </button>
             ))}
 
+            {/* Desktop / Tablet only: On mobile, these actions live in the bottom command dock */}
             {onRandomize && (
               <button
                 type="button"
                 onClick={onRandomize}
-                className="rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer ml-0.5"
+                className="hidden sm:inline-flex rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer ml-0.5"
                 title="Randomize Palette"
                 aria-label="Randomize Palette"
               >
@@ -133,7 +134,7 @@ export function LiveCanvas({
               <button
                 type="button"
                 onClick={onDownloadPng}
-                className="rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+                className="hidden sm:inline-flex rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
                 title="Export 4K Ultra HD PNG Wallpaper"
                 aria-label="Export 4K Wallpaper"
               >

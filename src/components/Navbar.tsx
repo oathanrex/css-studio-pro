@@ -142,6 +142,7 @@ export function Navbar({
         activeMode={activeMode}
         onOpenDrawer={() => setIsDrawerOpen(true)}
         onRandomize={onRandomize}
+        onDownloadPng={onDownloadPng}
         onCopyCss={onCopyCss}
         copied={copied}
       />
